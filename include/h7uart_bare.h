@@ -55,7 +55,7 @@ typedef enum
   H7UART_USART2,
   H7UART_USART3,
   H7UART_USART6,
-  H7UART_LUART1
+  H7UART_LPUART1
 } h7uart_periph_t;
 
 
@@ -234,6 +234,7 @@ typedef struct
   uint8_t               irq_subpri;
   h7uart_pin_rx_t       pin_rx;
   h7uart_pin_tx_t       pin_tx;
+  uint32_t              rcc_clksource;
   h7uart_periph_func_t  function;
   h7uart_data_config_t  data_config;
   h7uart_fifo_mode_en_t fifo_enable;
@@ -242,7 +243,7 @@ typedef struct
   uint32_t              baud_rate;
 
   void (*irq_callback)(uint32_t);
-  void (*rx_callback)(void);
+  void (*rx_callback)(uint8_t*,uint32_t);
 
 }h7uart_periph_init_config_t;
 
@@ -261,7 +262,7 @@ int h7uart_is_ready(h7uart_periph_t peripheral);
 h7uart_uart_ret_code_t h7uart_wait_until_ready(h7uart_periph_t peripheral, uint32_t timeout);
 
 int h7uart_is_in_error(h7uart_periph_t peripheral);
-h7uart_uart_ret_code_t h7uart_get_state(h7uart_periph_t peripheral);
+h7uart_uart_fsm_state_t h7uart_get_state(h7uart_periph_t peripheral);
 h7uart_uart_ret_code_t h7uart_clear_error_state(h7uart_periph_t peripheral);
 
 h7uart_uart_ret_code_t h7uart_tx_nonblocking(h7uart_periph_t peripheral, uint16_t len,  uint8_t* data, uint32_t timeout);

@@ -52,7 +52,7 @@
 uint8_t h7uart_mutex_usart1 = H7UART_UART_MUTEX_UNLOCKED;
 
 h7uart_driver_instance_state_t h7uart_state_usart1 =
-
+{
   .fsm_state       = H7UART_FSM_STATE_UNINITIALIZED,
   .uart_base       = USART1,
 
@@ -64,8 +64,7 @@ h7uart_driver_instance_state_t h7uart_state_usart1 =
   .rtor_value      = 0UL,
   .rqr_value       = 0UL,
 
-  .len_rx          = 0UL,
-  .data_rx         = NULL,
+  .data_rx         = {0},
 
   .len_tx          = 0UL,
   .cont_tx         = 0UL,
@@ -85,8 +84,7 @@ h7uart_periph_init_config_t current_periph_init_config_usart1 =
   .rcc_clksource = RCC_USART1CLKSOURCE_D2PCLK2,
   .data_config   = DATA_WORD_LENGTH_8_NO_PARITY,
   .fifo_enable   = FIFO_MODE_DISABLE,
-  .fifo_tx       = FIFO_TH_1_8,
-  .fifo_rx       = FIFO_TH_1_8,
+  .fifo_rx_thres = FIFO_TH_1_8,
   .presc         = H7UART_PRESC_DIV_1,
   .baud_rate     = 115200,
   .irq_callback  = NULL,
@@ -99,7 +97,7 @@ h7uart_periph_init_config_t current_periph_init_config_usart1 =
 uint8_t h7uart_mutex_usart2 = H7UART_UART_MUTEX_UNLOCKED;
 
 h7uart_driver_instance_state_t h7uart_state_usart2 =
-
+{
   .fsm_state       = H7UART_FSM_STATE_UNINITIALIZED,
   .uart_base       = USART2,
 
@@ -111,8 +109,7 @@ h7uart_driver_instance_state_t h7uart_state_usart2 =
   .rtor_value      = 0UL,
   .rqr_value       = 0UL,
 
-  .len_rx          = 0UL,
-  .data_rx         = NULL,
+  .data_rx         = {0},
 
   .len_tx          = 0UL,
   .cont_tx         = 0UL,
@@ -127,26 +124,24 @@ h7uart_driver_instance_state_t h7uart_state_usart2 =
 
 h7uart_periph_init_config_t current_periph_init_config_usart2 =
 {
-  .pin_rx        = H7UART_PIN_USART2_RX_PD6,
-  .pin_tx        = H7UART_PIN_USART2_TX_PD5,
-  .rcc_clksource = RCC_USART234578CLKSOURCE_D2PCLK1,
+  .pin_rx        = H7UART_PIN_USART1_RX_PA10,
+  .pin_tx        = H7UART_PIN_USART1_TX_PB14,
+  .rcc_clksource = RCC_USART1CLKSOURCE_D2PCLK2,
   .data_config   = DATA_WORD_LENGTH_8_NO_PARITY,
   .fifo_enable   = FIFO_MODE_DISABLE,
-  .fifo_tx       = FIFO_TH_1_8,
-  .fifo_rx       = FIFO_TH_1_8,
+  .fifo_rx_thres = FIFO_TH_1_8,
   .presc         = H7UART_PRESC_DIV_1,
   .baud_rate     = 115200,
   .irq_callback  = NULL,
   .rx_callback   = NULL
 };
-
 #endif
 
 #if H7UART_PERIPH_ENABLE_USART3 == 1
 uint8_t h7uart_mutex_usart3 = H7UART_UART_MUTEX_UNLOCKED;
 
 h7uart_driver_instance_state_t h7uart_state_usart3 =
-
+{
   .fsm_state       = H7UART_FSM_STATE_UNINITIALIZED,
   .uart_base       = USART3,
 
@@ -158,8 +153,7 @@ h7uart_driver_instance_state_t h7uart_state_usart3 =
   .rtor_value      = 0UL,
   .rqr_value       = 0UL,
 
-  .len_rx          = 0UL,
-  .data_rx         = NULL,
+  .data_rx         = {0},
 
   .len_tx          = 0UL,
   .cont_tx         = 0UL,
@@ -174,27 +168,24 @@ h7uart_driver_instance_state_t h7uart_state_usart3 =
 
 h7uart_periph_init_config_t current_periph_init_config_usart3 =
 {
-  .pin_rx        = H7UART_PIN_USART3_RX_PC11,
-  .pin_tx        = H7UART_PIN_USART3_TX_PB10,
-  .rcc_clksource = RCC_USART234578CLKSOURCE_D2PCLK1,
+  .pin_rx        = H7UART_PIN_USART1_RX_PA10,
+  .pin_tx        = H7UART_PIN_USART1_TX_PB14,
+  .rcc_clksource = RCC_USART1CLKSOURCE_D2PCLK2,
   .data_config   = DATA_WORD_LENGTH_8_NO_PARITY,
   .fifo_enable   = FIFO_MODE_DISABLE,
-  .fifo_tx       = FIFO_TH_1_8,
-  .fifo_rx       = FIFO_TH_1_8,
+  .fifo_rx_thres = FIFO_TH_1_8,
   .presc         = H7UART_PRESC_DIV_1,
   .baud_rate     = 115200,
   .irq_callback  = NULL,
   .rx_callback   = NULL
-
 };
-
 #endif
 
 #if H7UART_PERIPH_ENABLE_UART4 == 1
 uint8_t h7uart_mutex_uart4 = H7UART_UART_MUTEX_UNLOCKED;
 
 h7uart_driver_instance_state_t h7uart_state_uart4 =
-
+{
   .fsm_state       = H7UART_FSM_STATE_UNINITIALIZED,
   .uart_base       = UART4,
 
@@ -205,6 +196,8 @@ h7uart_driver_instance_state_t h7uart_state_uart4 =
   .gtpr_value      = 0UL,
   .rtor_value      = 0UL,
   .rqr_value       = 0UL,
+
+  .data_rx         = {0},
 
   .len_tx          = 0UL,
   .cont_tx         = 0UL,
@@ -219,26 +212,26 @@ h7uart_driver_instance_state_t h7uart_state_uart4 =
 
 h7uart_periph_init_config_t current_periph_init_config_uart4 =
 {
-  .pin_rx        = H7UART_PIN_UART4_RX_PH14,
-  .pin_tx        = H7UART_PIN_UART4_TX_PB9,
-  .rcc_clksource = RCC_USART234578CLKSOURCE_D2PCLK1,
+  .pin_rx        = H7UART_PIN_USART1_RX_PA10,
+  .pin_tx        = H7UART_PIN_USART1_TX_PB14,
+  .rcc_clksource = RCC_USART1CLKSOURCE_D2PCLK2,
+  .data_config   = DATA_WORD_LENGTH_8_NO_PARITY,
   .fifo_enable   = FIFO_MODE_DISABLE,
-  .fifo_tx       = FIFO_TH_1_8,
-  .fifo_rx       = FIFO_TH_1_8,
+  .fifo_rx_thres = FIFO_TH_1_8,
+  .presc         = H7UART_PRESC_DIV_1,
   .baud_rate     = 115200,
   .irq_callback  = NULL,
   .rx_callback   = NULL
 };
-
 #endif
 
 #if H7UART_PERIPH_ENABLE_UART5 == 1
 uint8_t h7uart_mutex_uart5 = H7UART_UART_MUTEX_UNLOCKED;
 
 h7uart_driver_instance_state_t h7uart_state_uart5 =
-
+{
   .fsm_state       = H7UART_FSM_STATE_UNINITIALIZED,
-  .uart_base       = USART5,
+  .uart_base       = UART5,
 
   .cr1_value       = 0UL,
   .cr2_value       = 0UL,
@@ -248,12 +241,14 @@ h7uart_driver_instance_state_t h7uart_state_uart5 =
   .rtor_value      = 0UL,
   .rqr_value       = 0UL,
 
-  .len_rx          = 0UL,
-  .data_rx         = NULL,
+  .data_rx         = {0},
 
   .len_tx          = 0UL,
   .cont_tx         = 0UL,
   .data_tx         = NULL,
+
+  .irq_callback    = NULL,
+  .rx_callback     = NULL,
 
   .timestart       = 0UL,
   .timeout         = 0UL
@@ -261,26 +256,24 @@ h7uart_driver_instance_state_t h7uart_state_uart5 =
 
 h7uart_periph_init_config_t current_periph_init_config_uart5 =
 {
-  .pin_rx        = H7UART_PIN_UART5_RX_D2,
-  .pin_tx        = H7UART_PIN_UART5_TX_PC12,
-  .rcc_clksource = RCC_USART234578CLKSOURCE_D2PCLK1,
+  .pin_rx        = H7UART_PIN_USART1_RX_PA10,
+  .pin_tx        = H7UART_PIN_USART1_TX_PB14,
+  .rcc_clksource = RCC_USART1CLKSOURCE_D2PCLK2,
   .data_config   = DATA_WORD_LENGTH_8_NO_PARITY,
   .fifo_enable   = FIFO_MODE_DISABLE,
-  .fifo_tx       = FIFO_TH_1_8,
-  .fifo_rx       = FIFO_TH_1_8,
+  .fifo_rx_thres = FIFO_TH_1_8,
   .presc         = H7UART_PRESC_DIV_1,
   .baud_rate     = 115200,
   .irq_callback  = NULL,
   .rx_callback   = NULL
 };
-
 #endif
 
 #if H7UART_PERIPH_ENABLE_USART6 == 1
 uint8_t h7uart_mutex_usart6 = H7UART_UART_MUTEX_UNLOCKED;
 
 h7uart_driver_instance_state_t h7uart_state_usart6 =
-
+{
   .fsm_state       = H7UART_FSM_STATE_UNINITIALIZED,
   .uart_base       = USART6,
 
@@ -292,8 +285,7 @@ h7uart_driver_instance_state_t h7uart_state_usart6 =
   .rtor_value      = 0UL,
   .rqr_value       = 0UL,
 
-  .len_rx          = 0UL,
-  .data_rx         = NULL,
+  .data_rx         = {0},
 
   .len_tx          = 0UL,
   .cont_tx         = 0UL,
@@ -308,27 +300,24 @@ h7uart_driver_instance_state_t h7uart_state_usart6 =
 
 h7uart_periph_init_config_t current_periph_init_config_usart6 =
 {
-  .pin_rx        = H7UART_PIN_USART6_RX_PC7,
-  .pin_tx        = H7UART_PIN_USART6_TX_PG14,
-  .rcc_clksource = RCC_USART234578CLKSOURCE_D2PCLK1,
+  .pin_rx        = H7UART_PIN_USART1_RX_PA10,
+  .pin_tx        = H7UART_PIN_USART1_TX_PB14,
+  .rcc_clksource = RCC_USART1CLKSOURCE_D2PCLK2,
   .data_config   = DATA_WORD_LENGTH_8_NO_PARITY,
   .fifo_enable   = FIFO_MODE_DISABLE,
-  .fifo_tx       = FIFO_TH_1_8,
-  .fifo_rx       = FIFO_TH_1_8,
+  .fifo_rx_thres = FIFO_TH_1_8,
   .presc         = H7UART_PRESC_DIV_1,
   .baud_rate     = 115200,
   .irq_callback  = NULL,
   .rx_callback   = NULL
 };
-
 #endif
 
 #if H7UART_PERIPH_ENABLE_UART7 == 1
 uint8_t h7uart_mutex_uart7 = H7UART_UART_MUTEX_UNLOCKED;
 
-
 h7uart_driver_instance_state_t h7uart_state_uart7 =
-
+{
   .fsm_state       = H7UART_FSM_STATE_UNINITIALIZED,
   .uart_base       = UART7,
 
@@ -340,8 +329,7 @@ h7uart_driver_instance_state_t h7uart_state_uart7 =
   .rtor_value      = 0UL,
   .rqr_value       = 0UL,
 
-  .len_rx          = 0UL,
-  .data_rx         = NULL,
+  .data_rx         = {0},
 
   .len_tx          = 0UL,
   .cont_tx         = 0UL,
@@ -356,26 +344,23 @@ h7uart_driver_instance_state_t h7uart_state_uart7 =
 
 h7uart_periph_init_config_t current_periph_init_config_uart7 =
 {
-  .pin_rx        = H7UART_PIN_UART7_RX_PE7,
-  .pin_tx        = H7UART_PIN_UART7_TX_PE8,
-  .rcc_clksource = RCC_USART234578CLKSOURCE_D2PCLK1,
+  .pin_rx        = H7UART_PIN_USART1_RX_PA10,
+  .pin_tx        = H7UART_PIN_USART1_TX_PB14,
+  .rcc_clksource = RCC_USART1CLKSOURCE_D2PCLK2,
   .data_config   = DATA_WORD_LENGTH_8_NO_PARITY,
   .fifo_enable   = FIFO_MODE_DISABLE,
-  .fifo_tx       = FIFO_TH_1_8,
-  .fifo_rx       = FIFO_TH_1_8,
+  .fifo_rx_thres = FIFO_TH_1_8,
   .presc         = H7UART_PRESC_DIV_1,
   .baud_rate     = 115200,
   .irq_callback  = NULL,
-  .rx_callback   = NULL
 };
-
 #endif
 
 #if H7UART_PERIPH_ENABLE_UART8 == 1
 uint8_t h7uart_mutex_uart8 = H7UART_UART_MUTEX_UNLOCKED;
 
 h7uart_driver_instance_state_t h7uart_state_uart8 =
-
+{
   .fsm_state       = H7UART_FSM_STATE_UNINITIALIZED,
   .uart_base       = UART8,
 
@@ -387,8 +372,7 @@ h7uart_driver_instance_state_t h7uart_state_uart8 =
   .rtor_value      = 0UL,
   .rqr_value       = 0UL,
 
-  .len_rx          = 0UL,
-  .data_rx         = NULL,
+  .data_rx         = {0},
 
   .len_tx          = 0UL,
   .cont_tx         = 0UL,
@@ -403,26 +387,23 @@ h7uart_driver_instance_state_t h7uart_state_uart8 =
 
 h7uart_periph_init_config_t current_periph_init_config_uart8 =
 {
-  .pin_rx        = H7UART_PIN_UART8_RX_PE0,
-  .pin_tx        = H7UART_PIN_UART8_TX_PE1,
-  .rcc_clksource = RCC_USART234578CLKSOURCE_D2PCLK1,
+  .pin_rx        = H7UART_PIN_USART1_RX_PA10,
+  .pin_tx        = H7UART_PIN_USART1_TX_PB14,
+  .rcc_clksource = RCC_USART1CLKSOURCE_D2PCLK2,
   .data_config   = DATA_WORD_LENGTH_8_NO_PARITY,
   .fifo_enable   = FIFO_MODE_DISABLE,
-  .fifo_tx       = FIFO_TH_1_8,
-  .fifo_rx       = FIFO_TH_1_8,
+  .fifo_rx_thres = FIFO_TH_1_8,
   .presc         = H7UART_PRESC_DIV_1,
   .baud_rate     = 115200,
   .irq_callback  = NULL,
-  .rx_callback   = NULL
 };
-
 #endif
 
 #if H7UART_PERIPH_ENABLE_LPUART1 == 1
 uint8_t h7uart_mutex_lpuart1 = H7UART_UART_MUTEX_UNLOCKED;
 
 h7uart_driver_instance_state_t h7uart_state_lpuart1 =
-
+{
   .fsm_state       = H7UART_FSM_STATE_UNINITIALIZED,
   .uart_base       = LPUART1,
 
@@ -434,11 +415,10 @@ h7uart_driver_instance_state_t h7uart_state_lpuart1 =
   .rtor_value      = 0UL,
   .rqr_value       = 0UL,
 
-  .len_rx          = 0UL,
-  .cont_tx         = 0UL,
-  .data_rx         = NULL,
+  .data_rx         = {0},
 
   .len_tx          = 0UL,
+  .cont_tx         = 0UL,
   .data_tx         = NULL,
 
   .irq_callback    = NULL,
@@ -450,19 +430,16 @@ h7uart_driver_instance_state_t h7uart_state_lpuart1 =
 
 h7uart_periph_init_config_t current_periph_init_config_lpuart1 =
 {
-  .pin_rx        = H7UART_PIN_LUART1_RX_PA10,
-  .pin_tx        = H7UART_PIN_LUART1_TX_PA9,
-  .rcc_clksource = RCC_USART234578CLKSOURCE_D2PCLK1,
+  .pin_rx        = H7UART_PIN_USART1_RX_PA10,
+  .pin_tx        = H7UART_PIN_USART1_TX_PB14,
+  .rcc_clksource = RCC_USART1CLKSOURCE_D2PCLK2,
   .data_config   = DATA_WORD_LENGTH_8_NO_PARITY,
   .fifo_enable   = FIFO_MODE_DISABLE,
-  .fifo_tx       = FIFO_TH_1_8,
-  .fifo_rx       = FIFO_TH_1_8,
+  .fifo_rx_thres = FIFO_TH_1_8,
   .presc         = H7UART_PRESC_DIV_1,
   .baud_rate     = 115200,
   .irq_callback  = NULL,
-  .rx_callback   = NULL
 };
-
 #endif
 
 #if H7UART_PERIPH_ENABLE_USART1 == 1
@@ -689,18 +666,20 @@ h7uart_uart_fsm_state_t h7uart_get_state(h7uart_periph_t peripheral)
       default:
         break;
     };
-    return H7UART_FSM_STATE_UNMANEGED_BY_DRIVER;
+
+  return H7UART_FSM_STATE_UNMANAGED_BY_DRIVER;
 }
 
 int h7uart_is_in_error(h7uart_periph_t peripheral)
 {
   switch(h7uart_get_state(peripheral))
   {
+    case H7UART_FSM_STATE_ERROR_ABRE:
     case H7UART_FSM_STATE_ERROR_UDR:
-    case H7UART_FSM_STATE_ERROR_OVR:
-    case H7UART_FSM_STATE_ERROR_CRCE:
-    case H7UART_FSM_STATE_ERROR_TIFRE:
-    case H7UART_FSM_STATE_ERROR_MODF:
+    case H7UART_FSM_STATE_ERROR_ORE:
+    case H7UART_FSM_STATE_ERROR_NE:
+    case H7UART_FSM_STATE_ERROR_FE:
+    case H7UART_FSM_STATE_ERROR_PE:
       return 1;
     default:
       break;
@@ -928,17 +907,17 @@ h7uart_uart_ret_code_t h7uart_uart_reset_peripheral_full(h7uart_periph_t periphe
 
   // Clear the Control Register 1 (disable some interrupts)
   MODIFY_REG(uartx->CR1,
-        USART_CR1_RXFFIE  | USART_CR1_TXFEIE | USART_CR1_FIFOEN | USART_CR1_M1   | USART_CR1_EOBIE   | USART_CR1_RTOIE
-      | USART_CR1_DEAT    | USART_CR1_DEDT   | USART_CR1_OVER8  | USART_CR1_CMIE | USART_CR1_MME     | USART_CR1_M0
-      | USART_CR1_WAKE    | USART_CR1_PCE    | USART_CR1_PS     | USART_CR1_PEIE | USART_CR1_TXFNFIE | USART_CR1_TCIE
-      | USART_CR1_RXFNEIE | USART_CR1_IDLEIE | USART_CR1_TE     | USART_CR1_RE   | USART_CR1_UESM    | USART_CR1_UE,
+        USART_CR1_RXFFIE         | USART_CR1_TXFEIE | USART_CR1_FIFOEN | USART_CR1_M1   | USART_CR1_EOBIE         | USART_CR1_RTOIE
+      | USART_CR1_DEAT           | USART_CR1_DEDT   | USART_CR1_OVER8  | USART_CR1_CMIE | USART_CR1_MME           | USART_CR1_M0
+      | USART_CR1_WAKE           | USART_CR1_PCE    | USART_CR1_PS     | USART_CR1_PEIE | USART_CR1_TXEIE_TXFNFIE | USART_CR1_TCIE
+      | USART_CR1_RXNEIE_RXFNEIE | USART_CR1_IDLEIE | USART_CR1_TE     | USART_CR1_RE   | USART_CR1_UESM          | USART_CR1_UE,
       0x00000000);
 
   // Clear the Control Register 2 (disable some interrupts)
   MODIFY_REG(uartx->CR2,
-        USART_CR2_ADD     | USART_CR2_RTOEN | USART_CR2_ABRMOD | USART_CR2_ABREN | USART_CR2_MSBFIRST | USART_CR2_DATAINV
-      | USART_CR2_TXINV   | USART_CR2_RXINV | USART_CR2_SWAP   | USART_CR2_LINEN | USART_CR2_STOP     | USART_CR2_CLKEN
-      | USART_CR2_CPOL    | USART_CR2_CPHA  | USART_CR2_LBCL   | USART_CR2_LBDIE | USART_CR2_LBDL     | USART_CR2_ADDM7
+        USART_CR2_ADD     | USART_CR2_RTOEN | USART_CR2_ABRMODE | USART_CR2_ABREN | USART_CR2_MSBFIRST | USART_CR2_DATAINV
+      | USART_CR2_TXINV   | USART_CR2_RXINV | USART_CR2_SWAP    | USART_CR2_LINEN | USART_CR2_STOP     | USART_CR2_CLKEN
+      | USART_CR2_CPOL    | USART_CR2_CPHA  | USART_CR2_LBCL    | USART_CR2_LBDIE | USART_CR2_LBDL     | USART_CR2_ADDM7
       | USART_CR2_DIS_NSS | USART_CR2_SLVEN,
       0x00000000);
 
@@ -961,7 +940,7 @@ h7uart_uart_ret_code_t h7uart_uart_reset_peripheral_full(h7uart_periph_t periphe
   h7uart_uart_mutex_release(peripheral);
 
   // Update driver state
-  h7uart_state_usart1.fsm_state = H7I2C_FSM_STATE_UNINITIALIZED;
+  instance->fsm_state = H7UART_FSM_STATE_UNINITIALIZED;
 
   return H7UART_RET_CODE_OK;
 }
@@ -979,12 +958,11 @@ h7uart_uart_ret_code_t h7uart_uart_reset_peripheral_soft(h7uart_periph_t periphe
   ((void) READ_BIT(uartx->CR1, USART_CR1_UE)); // the cast to void to suppress the "value computed is not used [-Wunused-value]" warning
   SET_BIT(uartx->CR1, USART_CR1_UE);
 
-
   // Mutex release
   h7uart_uart_mutex_release(peripheral);
 
   // Update driver state
-  h7uart_state_usart1.fsm_state = H7I2C_FSM_STATE_IDLE;
+  instance->fsm_state = H7UART_FSM_STATE_IDLE;
 
   return H7UART_RET_CODE_OK;
 }
@@ -1142,24 +1120,24 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
   {
    case FIFO_MODE_DISABLE:
      cr1_value =
-         ( (0UL << USART_CR1_FIFOEN_Pos ) & USART_CR1_FIFOEN ) | // FIFOEN = FIFO mode is not enable.
-         ( (1UL << USART_CR1_TXEIE_Pos  ) & USART_CR1_TXEIE  ) | // TXEIE  = Transmit data reg. empty interrupt.
-         ( (1UL << USART_CR1_RXNEIE_Pos ) & USART_CR1_RXNEIE ) ; // RXNEIE = Receive data reg. not empty interrupt.
+         ( (0UL << USART_CR1_FIFOEN_Pos        ) & USART_CR1_FIFOEN        ) | // FIFOEN = FIFO mode is not enable.
+         ( (1UL << USART_CR1_TXEIE_TXFNFIE_Pos ) & USART_CR1_TXEIE_TXFNFIE ) | // TXEIE  = Transmit data reg. empty interrupt.
+         ( (1UL << USART_CR1_RXNEIE_RXFNEIE_Pos) & USART_CR1_RXNEIE        ) ; // RXNEIE = Receive data reg. not empty interrupt.
      break;
 
    case FIFO_MODE_ENABLE:
      cr1_value =
-         ( (1UL << USART_CR1_RXFFIE_Pos ) & USART_CR1_RXFFIE  ) | // RXFFIE  = RXFIFO Full interrupt enable.
-         ( (1UL << USART_CR1_TXFFIE_Pos ) & USART_CR1_TXFFIE  ) | // TXFEIIE = TXFIDO empty interrupt enable.
-         ( (1UL << USART_CR1_FIFOEN_Pos ) & USART_CR1_FIFOEN  ) | // FIFOEN  = FIFO mode is not enable.
-         ( (1UL << USART_CR1_TXFNFIE_Pos) & USART_CR1_TXFNFIE ) | // TXFNFIE = TXFIFO not full interrupt enable.
-         ( (1UL << USART_CR1_RXFNEIE_Pos) & USART_CR1_RXFNEIE ) ; // RXFNEIE = RXFIFO not empty interrupt enable.
+         ( (1UL << USART_CR1_RXFFIE_Pos        ) & USART_CR1_RXFFIE             ) | // RXFFIE  = RXFIFO Full interrupt enable.
+         ( (1UL << USART_CR1_TXFEIE_Pos        ) & USART_CR1_TXFEIE             ) | // TXFEIE: = TXFIDO empty interrupt enable.
+         ( (1UL << USART_CR1_FIFOEN_Pos        ) & USART_CR1_FIFOEN             ) | // FIFOEN  = FIFO mode is not enable.
+         ( (1UL << USART_CR1_TXEIE_TXFNFIE_Pos ) & USART_CR1_TXEIE_TXFNFIE      ) | // TXFNFIE = TXFIFO not full interrupt enable.
+         ( (1UL << USART_CR1_RXNEIE_RXFNEIE_Pos) & USART_CR1_RXNEIE_RXFNEIE_Pos ) ; // RXFNEIE = RXFIFO not empty interrupt enable.
 
      cr3_value =
-         ( (0UL << USART_CR3_TXFTCFG_Pos ) & USART_CR3_TXFTCFG ) | // TXFTCFG = TXFIFO thres. config.
-         ( (1UL << USART_CR3_RXFTIE_Pos  ) & USART_CR3_RXFTIE  ) | // RXFTIE  = RXFIFO thres. interrupt enable
-         ( (((uint32_t) init_config->fifo_rx ) << USART_CR3_RXFTCFG_Pos ) & USART_CR3_RXFTCFG ) | // RXFTCFG = TXFIFO thres. config.
-         ( (1UL << USART_CR3_TXFTIE_Pos  ) & USART_CR3_TXFTIE  ) ; // RXFTIE  = RXFIFO thres. interrupt enable
+         ( (0UL                                      << USART_CR3_TXFTCFG_Pos ) & USART_CR3_TXFTCFG ) | // TXFTCFG = TXFIFO thres. config.
+         ( (1UL                                      << USART_CR3_RXFTIE_Pos  ) & USART_CR3_RXFTIE  ) | // RXFTIE  = RXFIFO thres. interrupt enable
+         ( (((uint32_t) init_config->fifo_rx_thres ) << USART_CR3_RXFTCFG_Pos ) & USART_CR3_RXFTCFG ) | // RXFTCFG = TXFIFO thres. config.
+         ( (1UL                                      << USART_CR3_TXFTIE_Pos  ) & USART_CR3_TXFTIE  ) ; // RXFTIE  = RXFIFO thres. interrupt enable
      break;
 
    default:
@@ -1378,10 +1356,10 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
       //
 
       //- Global peripheral callback
-      h7uart_state_usart1->irq_callback = init_config->irq_callback;
+      h7uart_state_usart1.irq_callback = init_config->irq_callback;
 
       //- Reception callback
-      h7uart_state_usart1->rx_callback  = init_config->rx_callback;
+      h7uart_state_usart1.rx_callback  = init_config->rx_callback;
 
       //
       // *** UART SETUP ***
@@ -1392,17 +1370,17 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
 
       // Set the Config Register 1
       MODIFY_REG(USART1->CR1,
-            USART_CR1_M1      | USART_CR1_EOBIE  | USART_CR1_RTOIE
-          | USART_CR1_DEAT    | USART_CR1_DEDT   | USART_CR1_OVER8  | USART_CR1_CMIE | USART_CR1_MME     | USART_CR1_M0
-          | USART_CR1_WAKE    | USART_CR1_PCE    | USART_CR1_PS     | USART_CR1_PEIE | USART_CR1_TXFNFIE | USART_CR1_TCIE
-          | USART_CR1_RXFNEIE | USART_CR1_IDLEIE | USART_CR1_TE     | USART_CR1_RE   | USART_CR1_UESM    | USART_CR1_UE,
+            USART_CR1_M1             | USART_CR1_EOBIE  | USART_CR1_RTOIE
+          | USART_CR1_DEAT           | USART_CR1_DEDT   | USART_CR1_OVER8  | USART_CR1_CMIE | USART_CR1_MME           | USART_CR1_M0
+          | USART_CR1_WAKE           | USART_CR1_PCE    | USART_CR1_PS     | USART_CR1_PEIE | USART_CR1_TXEIE_TXFNFIE | USART_CR1_TCIE
+          | USART_CR1_RXNEIE_RXFNEIE | USART_CR1_IDLEIE | USART_CR1_TE     | USART_CR1_RE   | USART_CR1_UESM          | USART_CR1_UE,
           cr1_value);
 
       // Set the Config Register 2
       MODIFY_REG(USART1->CR2,
-            USART_CR2_ADD     | USART_CR2_RTOEN | USART_CR2_ABRMOD | USART_CR2_ABREN | USART_CR2_MSBFIRST | USART_CR2_DATAINV
-          | USART_CR2_TXINV   | USART_CR2_RXINV | USART_CR2_SWAP   | USART_CR2_LINEN | USART_CR2_STOP     | USART_CR2_CLKEN
-          | USART_CR2_CPOL    | USART_CR2_CPHA  | USART_CR2_LBCL   | USART_CR2_LBDIE | USART_CR2_LBDL     | USART_CR2_ADDM7
+            USART_CR2_ADD     | USART_CR2_RTOEN | USART_CR2_ABRMODE | USART_CR2_ABREN | USART_CR2_MSBFIRST | USART_CR2_DATAINV
+          | USART_CR2_TXINV   | USART_CR2_RXINV | USART_CR2_SWAP    | USART_CR2_LINEN | USART_CR2_STOP     | USART_CR2_CLKEN
+          | USART_CR2_CPOL    | USART_CR2_CPHA  | USART_CR2_LBCL    | USART_CR2_LBDIE | USART_CR2_LBDL     | USART_CR2_ADDM7
           | USART_CR2_DIS_NSS | USART_CR2_SLVEN,
           cr2_value);
 
@@ -1416,16 +1394,12 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
 
       // Set the Guard Time and Prescaler Register
       // ( It is related to Smartcard function which is not implemented by the present driver )
-      MODIFY_REG(USART1->GTPR,
-          USART_GTPR_GT | USART_GTPR_PSC,
-          0UL);
+      MODIFY_REG(USART1->GTPR,USART_GTPR_GT | USART_GTPR_PSC,0UL);
 
       // Set Receiver Timeout Register
       // - BLEN: It is used only in Smartcard mode which is not implmented by the present driver
       // - RTO: Receive timeout value it is not used in the present driver.
-      MODIFY_REG(USART1->RTOR,
-          USART_RTOR_BLE | USART_RTOR_RTO,
-          0UL);
+      MODIFY_REG(USART1->RTOR,USART_RTOR_BLEN | USART_RTOR_RTO,0UL);
 
       // Set Baud Rate Configuration
 
@@ -1440,15 +1414,15 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
         Error_Handler();
 
       // Set Prescaler Register
-      MODIFY_REG(USART1->PRESC,USART_PRESC_PRESC,presc_value);
+      MODIFY_REG(USART1->PRESC,USART_PRESC_PRESCALER,presc_value);
 
       // Set Baud Rate Register
-      MODIFY_REG(USART1->BRR,USART_BRR_BRR,brr_value);
+      MODIFY_REG(USART1->BRR,USART_BRR_DIV_FRACTION | USART_BRR_DIV_MANTISSA,brr_value);
 
       //
       //  *** NVIC SETUP ***
       //
-      HAL_NVIC_SetPriority(USART1_IRQn, H7UART_USART1_PRI, H7UART_USART1_SUBPRI);
+      HAL_NVIC_SetPriority(USART1_IRQn,H7UART_IRQ_USART1_PRI, H7UART_IRQ_USART1_SUBPRI);
       HAL_NVIC_EnableIRQ(USART1_IRQn);
 
       // Peripheral enable
@@ -1552,10 +1526,10 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
       //
 
       //- Global peripheral callback
-      h7uart_state_usart2->irq_callback = init_config->irq_callback;
+      h7uart_state_usart2.irq_callback = init_config->irq_callback;
 
       //- Reception callback
-      h7uart_state_usart2->rx_callback  = init_config->rx_callback;
+      h7uart_state_usart2.rx_callback  = init_config->rx_callback;
 
       //
       // *** UART SETUP ***
@@ -1566,18 +1540,18 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
 
       // Set the Config Register 1
       MODIFY_REG(USART2->CR1,
-            USART_CR1_M1      | USART_CR1_EOBIE  | USART_CR1_RTOIE
-          | USART_CR1_DEAT    | USART_CR1_DEDT   | USART_CR1_OVER8  | USART_CR1_CMIE | USART_CR1_MME     | USART_CR1_M0
-          | USART_CR1_WAKE    | USART_CR1_PCE    | USART_CR1_PS     | USART_CR1_PEIE | USART_CR1_TXFNFIE | USART_CR1_TCIE
-          | USART_CR1_RXFNEIE | USART_CR1_IDLEIE | USART_CR1_TE     | USART_CR1_RE   | USART_CR1_UESM    | USART_CR1_UE,
+              USART_CR1_M1             | USART_CR1_EOBIE  | USART_CR1_RTOIE
+            | USART_CR1_DEAT           | USART_CR1_DEDT   | USART_CR1_OVER8  | USART_CR1_CMIE | USART_CR1_MME           | USART_CR1_M0
+            | USART_CR1_WAKE           | USART_CR1_PCE    | USART_CR1_PS     | USART_CR1_PEIE | USART_CR1_TXEIE_TXFNFIE | USART_CR1_TCIE
+            | USART_CR1_RXNEIE_RXFNEIE | USART_CR1_IDLEIE | USART_CR1_TE     | USART_CR1_RE   | USART_CR1_UESM          | USART_CR1_UE,
           cr1_value);
 
       // Set the Config Register 2
       MODIFY_REG(USART2->CR2,
-            USART_CR2_ADD     | USART_CR2_RTOEN | USART_CR2_ABRMOD | USART_CR2_ABREN | USART_CR2_MSBFIRST | USART_CR2_DATAINV
-          | USART_CR2_TXINV   | USART_CR2_RXINV | USART_CR2_SWAP   | USART_CR2_LINEN | USART_CR2_STOP     | USART_CR2_CLKEN
-          | USART_CR2_CPOL    | USART_CR2_CPHA  | USART_CR2_LBCL   | USART_CR2_LBDIE | USART_CR2_LBDL     | USART_CR2_ADDM7
-          | USART_CR2_DIS_NSS | USART_CR2_SLVEN,
+              USART_CR2_ADD     | USART_CR2_RTOEN | USART_CR2_ABRMODE | USART_CR2_ABREN | USART_CR2_MSBFIRST | USART_CR2_DATAINV
+            | USART_CR2_TXINV   | USART_CR2_RXINV | USART_CR2_SWAP    | USART_CR2_LINEN | USART_CR2_STOP     | USART_CR2_CLKEN
+            | USART_CR2_CPOL    | USART_CR2_CPHA  | USART_CR2_LBCL    | USART_CR2_LBDIE | USART_CR2_LBDL     | USART_CR2_ADDM7
+            | USART_CR2_DIS_NSS | USART_CR2_SLVEN,
           cr2_value);
 
       // Set the Config Register 3
@@ -1590,16 +1564,12 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
 
       // Set the Guard Time and Prescaler Register
       // ( It is related to Smartcard function which is not implemented by the present driver )
-      MODIFY_REG(USART2->GTPR,
-          USART_GTPR_GT | USART_GTPR_PSC,
-          0UL);
+      MODIFY_REG(USART2->GTPR,USART_GTPR_GT | USART_GTPR_PSC,0UL);
 
       // Set Receiver Timeout Register
       // - BLEN: It is used only in Smartcard mode which is not implmented by the present driver
       // - RTO: Receive timeout value it is not used in the present driver.
-      MODIFY_REG(USART2->RTOR,
-          USART_RTOR_BLE | USART_RTOR_RTO,
-          0UL);
+      MODIFY_REG(USART2->RTOR,USART_RTOR_BLEN | USART_RTOR_RTO,0UL);
 
       // Set Baud Rate Configuration
 
@@ -1614,15 +1584,15 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
         Error_Handler();
 
       // Set Prescaler Register
-      MODIFY_REG(USART2->PRESC,USART_PRESC_PRESC,presc_value);
+      MODIFY_REG(USART2->PRESC,USART_PRESC_PRESCALER,presc_value);
 
       // Set Baud Rate Register
-      MODIFY_REG(USART2->BRR,USART_BRR_BRR,brr_value);
+      MODIFY_REG(USART2->BRR,USART_BRR_DIV_FRACTION | USART_BRR_DIV_MANTISSA,brr_value);
 
       //
       //  *** NVIC SETUP ***
       //
-      HAL_NVIC_SetPriority(USART2_IRQn, H7UART_USART2_PRI, H7UART_USART2_SUBPRI);
+      HAL_NVIC_SetPriority(USART2_IRQn, H7UART_IRQ_USART2_PRI, H7UART_IRQ_USART2_SUBPRI);
       HAL_NVIC_EnableIRQ(USART2_IRQn);
 
       // Peripheral enable
@@ -1755,10 +1725,10 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
       //
 
       //- Global peripheral callback
-      h7uart_state_usart3->irq_callback = init_config->irq_callback;
+      h7uart_state_usart3.irq_callback = init_config->irq_callback;
 
       //- Reception callback
-      h7uart_state_usart3->rx_callback  = init_config->rx_callback;
+      h7uart_state_usart3.rx_callback  = init_config->rx_callback;
 
 
       //
@@ -1770,17 +1740,17 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
 
       // Set the Config Register 1
       MODIFY_REG(USART3->CR1,
-            USART_CR1_M1      | USART_CR1_EOBIE  | USART_CR1_RTOIE
-          | USART_CR1_DEAT    | USART_CR1_DEDT   | USART_CR1_OVER8  | USART_CR1_CMIE | USART_CR1_MME     | USART_CR1_M0
-          | USART_CR1_WAKE    | USART_CR1_PCE    | USART_CR1_PS     | USART_CR1_PEIE | USART_CR1_TXFNFIE | USART_CR1_TCIE
-          | USART_CR1_RXFNEIE | USART_CR1_IDLEIE | USART_CR1_TE     | USART_CR1_RE   | USART_CR1_UESM    | USART_CR1_UE,
+            USART_CR1_M1             | USART_CR1_EOBIE  | USART_CR1_RTOIE
+          | USART_CR1_DEAT           | USART_CR1_DEDT   | USART_CR1_OVER8  | USART_CR1_CMIE | USART_CR1_MME           | USART_CR1_M0
+          | USART_CR1_WAKE           | USART_CR1_PCE    | USART_CR1_PS     | USART_CR1_PEIE | USART_CR1_TXEIE_TXFNFIE | USART_CR1_TCIE
+          | USART_CR1_RXNEIE_RXFNEIE | USART_CR1_IDLEIE | USART_CR1_TE     | USART_CR1_RE   | USART_CR1_UESM          | USART_CR1_UE,
           cr1_value);
 
       // Set the Config Register 2
       MODIFY_REG(USART3->CR2,
-            USART_CR2_ADD     | USART_CR2_RTOEN | USART_CR2_ABRMOD | USART_CR2_ABREN | USART_CR2_MSBFIRST | USART_CR2_DATAINV
-          | USART_CR2_TXINV   | USART_CR2_RXINV | USART_CR2_SWAP   | USART_CR2_LINEN | USART_CR2_STOP     | USART_CR2_CLKEN
-          | USART_CR2_CPOL    | USART_CR2_CPHA  | USART_CR2_LBCL   | USART_CR2_LBDIE | USART_CR2_LBDL     | USART_CR2_ADDM7
+            USART_CR2_ADD     | USART_CR2_RTOEN | USART_CR2_ABRMODE | USART_CR2_ABREN | USART_CR2_MSBFIRST | USART_CR2_DATAINV
+          | USART_CR2_TXINV   | USART_CR2_RXINV | USART_CR2_SWAP    | USART_CR2_LINEN | USART_CR2_STOP     | USART_CR2_CLKEN
+          | USART_CR2_CPOL    | USART_CR2_CPHA  | USART_CR2_LBCL    | USART_CR2_LBDIE | USART_CR2_LBDL     | USART_CR2_ADDM7
           | USART_CR2_DIS_NSS | USART_CR2_SLVEN,
           cr2_value);
 
@@ -1794,16 +1764,12 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
 
       // Set the Guard Time and Prescaler Register
       // ( It is related to Smartcard function which is not implemented by the present driver )
-      MODIFY_REG(USART3->GTPR,
-          USART_GTPR_GT | USART_GTPR_PSC,
-          0UL);
+      MODIFY_REG(USART3->GTPR,USART_GTPR_GT | USART_GTPR_PSC,0UL);
 
       // Set Receiver Timeout Register
       // - BLEN: It is used only in Smartcard mode which is not implmented by the present driver
       // - RTO: Receive timeout value it is not used in the present driver.
-      MODIFY_REG(USART3->RTOR,
-          USART_RTOR_BLE | USART_RTOR_RTO,
-          0UL);
+      MODIFY_REG(USART3->RTOR,USART_RTOR_BLEN | USART_RTOR_RTO,0UL);
 
       // Set Baud Rate Configuration
 
@@ -1818,15 +1784,15 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
         Error_Handler();
 
       // Set Prescaler Register
-      MODIFY_REG(USART3->PRESC,USART_PRESC_PRESC,presc_value);
+      MODIFY_REG(USART3->PRESC,USART_PRESC_PRESCALER,presc_value);
 
       // Set Baud Rate Register
-      MODIFY_REG(USART3->BRR,USART_BRR_BRR,brr_value);
+      MODIFY_REG(USART3->BRR,USART_BRR_DIV_FRACTION | USART_BRR_DIV_MANTISSA,brr_value);
 
       //
       //  *** NVIC SETUP ***
       //
-      HAL_NVIC_SetPriority(USART3_IRQn, H7UART_USART3_PRI, H7UART_USART3_SUBPRI);
+      HAL_NVIC_SetPriority(USART3_IRQn, H7UART_IRQ_USART3_PRI, H7UART_IRQ_USART3_SUBPRI);
       HAL_NVIC_EnableIRQ(USART3_IRQn);
 
       // Peripheral enable
@@ -1835,8 +1801,6 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
 
       // Update driver state
       h7uart_state_usart3.fsm_state = H7UART_FSM_STATE_IDLE;
-
-
       break;
 #endif
 
@@ -2065,10 +2029,10 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
       //
 
       //- Global peripheral callback
-      h7uart_state_uart4->irq_callback = init_config->irq_callback;
+      h7uart_state_uart4.irq_callback = init_config->irq_callback;
 
       //- Reception callback
-      h7uart_state_uart4->rx_callback  = init_config->rx_callback;
+      h7uart_state_uart4.rx_callback  = init_config->rx_callback;
 
       //
       // *** UART SETUP ***
@@ -2080,17 +2044,17 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
 
       // Set the Config Register 1
       MODIFY_REG(UART4->CR1,
-            USART_CR1_M1      | USART_CR1_EOBIE  | USART_CR1_RTOIE
-          | USART_CR1_DEAT    | USART_CR1_DEDT   | USART_CR1_OVER8  | USART_CR1_CMIE | USART_CR1_MME     | USART_CR1_M0
-          | USART_CR1_WAKE    | USART_CR1_PCE    | USART_CR1_PS     | USART_CR1_PEIE | USART_CR1_TXFNFIE | USART_CR1_TCIE
-          | USART_CR1_RXFNEIE | USART_CR1_IDLEIE | USART_CR1_TE     | USART_CR1_RE   | USART_CR1_UESM    | USART_CR1_UE,
+            USART_CR1_M1             | USART_CR1_EOBIE  | USART_CR1_RTOIE
+          | USART_CR1_DEAT           | USART_CR1_DEDT   | USART_CR1_OVER8  | USART_CR1_CMIE | USART_CR1_MME           | USART_CR1_M0
+          | USART_CR1_WAKE           | USART_CR1_PCE    | USART_CR1_PS     | USART_CR1_PEIE | USART_CR1_TXEIE_TXFNFIE | USART_CR1_TCIE
+          | USART_CR1_RXNEIE_RXFNEIE | USART_CR1_IDLEIE | USART_CR1_TE     | USART_CR1_RE   | USART_CR1_UESM          | USART_CR1_UE,
           cr1_value);
 
       // Set the Config Register 2
       MODIFY_REG(UART4->CR2,
-            USART_CR2_ADD     | USART_CR2_RTOEN | USART_CR2_ABRMOD | USART_CR2_ABREN | USART_CR2_MSBFIRST | USART_CR2_DATAINV
-          | USART_CR2_TXINV   | USART_CR2_RXINV | USART_CR2_SWAP   | USART_CR2_LINEN | USART_CR2_STOP     | USART_CR2_CLKEN
-          | USART_CR2_CPOL    | USART_CR2_CPHA  | USART_CR2_LBCL   | USART_CR2_LBDIE | USART_CR2_LBDL     | USART_CR2_ADDM7
+            USART_CR2_ADD     | USART_CR2_RTOEN | USART_CR2_ABRMODE | USART_CR2_ABREN | USART_CR2_MSBFIRST | USART_CR2_DATAINV
+          | USART_CR2_TXINV   | USART_CR2_RXINV | USART_CR2_SWAP    | USART_CR2_LINEN | USART_CR2_STOP     | USART_CR2_CLKEN
+          | USART_CR2_CPOL    | USART_CR2_CPHA  | USART_CR2_LBCL    | USART_CR2_LBDIE | USART_CR2_LBDL     | USART_CR2_ADDM7
           | USART_CR2_DIS_NSS | USART_CR2_SLVEN,
           cr2_value);
 
@@ -2104,16 +2068,12 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
 
       // Set the Guard Time and Prescaler Register
       // ( It is related to Smartcard function which is not implemented by the present driver )
-      MODIFY_REG(UART4->GTPR,
-          USART_GTPR_GT | USART_GTPR_PSC,
-          0UL);
+      MODIFY_REG(UART4->GTPR,USART_GTPR_GT | USART_GTPR_PSC,0UL);
 
       // Set Receiver Timeout Register
       // - BLEN: It is used only in Smartcard mode which is not implmented by the present driver
       // - RTO: Receive timeout value it is not used in the present driver.
-      MODIFY_REG(UART4->RTOR,
-          USART_RTOR_BLE | USART_RTOR_RTO,
-          0UL);
+      MODIFY_REG(UART4->RTOR,USART_RTOR_BLEN | USART_RTOR_RTO,0UL);
 
       // Set Baud Rate Configuration
 
@@ -2128,23 +2088,23 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
         Error_Handler();
 
       // Set Prescaler Register
-      MODIFY_REG(UART4->PRESC,USART_PRESC_PRESC,presc_value);
+      MODIFY_REG(UART4->PRESC,USART_PRESC_PRESCALER,presc_value);
 
       // Set Baud Rate Register
-      MODIFY_REG(UART4->BRR,USART_BRR_BRR,brr_value);
+      MODIFY_REG(UART4->BRR,USART_BRR_DIV_FRACTION | USART_BRR_DIV_MANTISSA,brr_value);
 
       //
       //  *** NVIC SETUP ***
       //
-      HAL_NVIC_SetPriority(UART4_IRQn, H7UART_UART4_PRI, H7UART_UART4_SUBPRI);
-      HAL_NVIC_EnableIRQ(USART4_IRQn);
+      HAL_NVIC_SetPriority(UART4_IRQn, H7UART_IRQ_UART4_PRI, H7UART_IRQ_UART4_SUBPRI);
+      HAL_NVIC_EnableIRQ(UART4_IRQn);
 
       // Peripheral enable
-      SET_BIT(USART4->CR1,USART_CR1_UE);
-      READ_REG(USART4->CR1);
+      SET_BIT(UART4->CR1,USART_CR1_UE);
+      READ_REG(UART4->CR1);
 
       // Update driver state
-      h7uart_state_usart4.fsm_state = H7UART_FSM_STATE_IDLE;
+      h7uart_state_uart4.fsm_state = H7UART_FSM_STATE_IDLE;
 
       break;
 #endif
@@ -2205,10 +2165,10 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
       //
 
       //- Global peripheral callback
-      h7uart_state_uart5->irq_callback = init_config->irq_callback;
+      h7uart_state_uart5.irq_callback = init_config->irq_callback;
 
       //- Reception callback
-      h7uart_state_uart5->rx_callback  = init_config->rx_callback;
+      h7uart_state_uart5.rx_callback  = init_config->rx_callback;
 
       //
       // *** UART SETUP ***
@@ -2219,17 +2179,17 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
 
       // Set the Config Register 1
       MODIFY_REG(UART5->CR1,
-            USART_CR1_M1      | USART_CR1_EOBIE  | USART_CR1_RTOIE
-          | USART_CR1_DEAT    | USART_CR1_DEDT   | USART_CR1_OVER8  | USART_CR1_CMIE | USART_CR1_MME     | USART_CR1_M0
-          | USART_CR1_WAKE    | USART_CR1_PCE    | USART_CR1_PS     | USART_CR1_PEIE | USART_CR1_TXFNFIE | USART_CR1_TCIE
-          | USART_CR1_RXFNEIE | USART_CR1_IDLEIE | USART_CR1_TE     | USART_CR1_RE   | USART_CR1_UESM    | USART_CR1_UE,
+            USART_CR1_M1             | USART_CR1_EOBIE  | USART_CR1_RTOIE
+          | USART_CR1_DEAT           | USART_CR1_DEDT   | USART_CR1_OVER8  | USART_CR1_CMIE | USART_CR1_MME           | USART_CR1_M0
+          | USART_CR1_WAKE           | USART_CR1_PCE    | USART_CR1_PS     | USART_CR1_PEIE | USART_CR1_TXEIE_TXFNFIE | USART_CR1_TCIE
+          | USART_CR1_RXNEIE_RXFNEIE | USART_CR1_IDLEIE | USART_CR1_TE     | USART_CR1_RE   | USART_CR1_UESM          | USART_CR1_UE,
           cr1_value);
 
       // Set the Config Register 2
       MODIFY_REG(UART5->CR2,
-            USART_CR2_ADD     | USART_CR2_RTOEN | USART_CR2_ABRMOD | USART_CR2_ABREN | USART_CR2_MSBFIRST | USART_CR2_DATAINV
-          | USART_CR2_TXINV   | USART_CR2_RXINV | USART_CR2_SWAP   | USART_CR2_LINEN | USART_CR2_STOP     | USART_CR2_CLKEN
-          | USART_CR2_CPOL    | USART_CR2_CPHA  | USART_CR2_LBCL   | USART_CR2_LBDIE | USART_CR2_LBDL     | USART_CR2_ADDM7
+            USART_CR2_ADD     | USART_CR2_RTOEN | USART_CR2_ABRMODE | USART_CR2_ABREN | USART_CR2_MSBFIRST | USART_CR2_DATAINV
+          | USART_CR2_TXINV   | USART_CR2_RXINV | USART_CR2_SWAP    | USART_CR2_LINEN | USART_CR2_STOP     | USART_CR2_CLKEN
+          | USART_CR2_CPOL    | USART_CR2_CPHA  | USART_CR2_LBCL    | USART_CR2_LBDIE | USART_CR2_LBDL     | USART_CR2_ADDM7
           | USART_CR2_DIS_NSS | USART_CR2_SLVEN,
           cr2_value);
 
@@ -2243,16 +2203,12 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
 
       // Set the Guard Time and Prescaler Register
       // ( It is related to Smartcard function which is not implemented by the present driver )
-      MODIFY_REG(UART5->GTPR,
-          USART_GTPR_GT | USART_GTPR_PSC,
-          0UL);
+      MODIFY_REG(UART5->GTPR,USART_GTPR_GT | USART_GTPR_PSC,0UL);
 
       // Set Receiver Timeout Register
       // - BLEN: It is used only in Smartcard mode which is not implmented by the present driver
       // - RTO: Receive timeout value it is not used in the present driver.
-      MODIFY_REG(UART5->RTOR,
-          USART_RTOR_BLE | USART_RTOR_RTO,
-          0UL);
+      MODIFY_REG(UART5->RTOR,USART_RTOR_BLEN | USART_RTOR_RTO,0UL);
 
       // Set Baud Rate Configuration
 
@@ -2267,23 +2223,23 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
         Error_Handler();
 
       // Set Prescaler Register
-      MODIFY_REG(UART5->PRESC,USART_PRESC_PRESC,presc_value);
+      MODIFY_REG(UART5->PRESC,USART_PRESC_PRESCALER,presc_value);
 
       // Set Baud Rate Register
-      MODIFY_REG(UART5->BRR,USART_BRR_BRR,brr_value);
+      MODIFY_REG(UART5->BRR,USART_BRR_DIV_FRACTION | USART_BRR_DIV_MANTISSA,brr_value);
 
       //
       //  *** NVIC SETUP ***
       //
-      HAL_NVIC_SetPriority(UART5_IRQn, H7UART_UART5_PRI, H7UART_UART5_SUBPRI);
-      HAL_NVIC_EnableIRQ(USART5_IRQn);
+      HAL_NVIC_SetPriority(UART5_IRQn, H7UART_IRQ_UART5_PRI, H7UART_IRQ_UART5_SUBPRI);
+      HAL_NVIC_EnableIRQ(UART5_IRQn);
 
       // Peripheral enable
-      SET_BIT(USART5->CR1,USART_CR1_UE);
-      READ_REG(USART5->CR1);
+      SET_BIT(UART5->CR1,USART_CR1_UE);
+      READ_REG(UART5->CR1);
 
       // Update driver state
-      h7uart_state_usart5.fsm_state = H7UART_FSM_STATE_IDLE;
+      h7uart_state_uart5.fsm_state = H7UART_FSM_STATE_IDLE;
 
       break;
 #endif
@@ -2377,10 +2333,10 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
       //
 
       //- Global peripheral callback
-      h7uart_state_usart6->irq_callback = init_config->irq_callback;
+      h7uart_state_usart6.irq_callback = init_config->irq_callback;
 
       //- Reception callback
-      h7uart_state_usart6->rx_callback  = init_config->rx_callback;
+      h7uart_state_usart6.rx_callback  = init_config->rx_callback;
 
       //
       // *** UART SETUP ***
@@ -2392,17 +2348,17 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
 
       // Set the Config Register 1
       MODIFY_REG(USART6->CR1,
-            USART_CR1_M1      | USART_CR1_EOBIE  | USART_CR1_RTOIE
-          | USART_CR1_DEAT    | USART_CR1_DEDT   | USART_CR1_OVER8  | USART_CR1_CMIE | USART_CR1_MME     | USART_CR1_M0
-          | USART_CR1_WAKE    | USART_CR1_PCE    | USART_CR1_PS     | USART_CR1_PEIE | USART_CR1_TXFNFIE | USART_CR1_TCIE
-          | USART_CR1_RXFNEIE | USART_CR1_IDLEIE | USART_CR1_TE     | USART_CR1_RE   | USART_CR1_UESM    | USART_CR1_UE,
+            USART_CR1_M1             | USART_CR1_EOBIE  | USART_CR1_RTOIE
+          | USART_CR1_DEAT           | USART_CR1_DEDT   | USART_CR1_OVER8  | USART_CR1_CMIE | USART_CR1_MME           | USART_CR1_M0
+          | USART_CR1_WAKE           | USART_CR1_PCE    | USART_CR1_PS     | USART_CR1_PEIE | USART_CR1_TXEIE_TXFNFIE | USART_CR1_TCIE
+          | USART_CR1_RXNEIE_RXFNEIE | USART_CR1_IDLEIE | USART_CR1_TE     | USART_CR1_RE   | USART_CR1_UESM          | USART_CR1_UE,
           cr1_value);
 
       // Set the Config Register 2
       MODIFY_REG(USART6->CR2,
-            USART_CR2_ADD     | USART_CR2_RTOEN | USART_CR2_ABRMOD | USART_CR2_ABREN | USART_CR2_MSBFIRST | USART_CR2_DATAINV
-          | USART_CR2_TXINV   | USART_CR2_RXINV | USART_CR2_SWAP   | USART_CR2_LINEN | USART_CR2_STOP     | USART_CR2_CLKEN
-          | USART_CR2_CPOL    | USART_CR2_CPHA  | USART_CR2_LBCL   | USART_CR2_LBDIE | USART_CR2_LBDL     | USART_CR2_ADDM7
+            USART_CR2_ADD     | USART_CR2_RTOEN | USART_CR2_ABRMODE | USART_CR2_ABREN | USART_CR2_MSBFIRST | USART_CR2_DATAINV
+          | USART_CR2_TXINV   | USART_CR2_RXINV | USART_CR2_SWAP    | USART_CR2_LINEN | USART_CR2_STOP     | USART_CR2_CLKEN
+          | USART_CR2_CPOL    | USART_CR2_CPHA  | USART_CR2_LBCL    | USART_CR2_LBDIE | USART_CR2_LBDL     | USART_CR2_ADDM7
           | USART_CR2_DIS_NSS | USART_CR2_SLVEN,
           cr2_value);
 
@@ -2416,16 +2372,12 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
 
       // Set the Guard Time and Prescaler Register
       // ( It is related to Smartcard function which is not implemented by the present driver )
-      MODIFY_REG(USART6->GTPR,
-          USART_GTPR_GT | USART_GTPR_PSC,
-          0UL);
+      MODIFY_REG(USART6->GTPR,USART_GTPR_GT | USART_GTPR_PSC,0UL);
 
       // Set Receiver Timeout Register
       // - BLEN: It is used only in Smartcard mode which is not implmented by the present driver
       // - RTO: Receive timeout value it is not used in the present driver.
-      MODIFY_REG(USART6->RTOR,
-          USART_RTOR_BLE | USART_RTOR_RTO,
-          0UL);
+      MODIFY_REG(USART6->RTOR,USART_RTOR_BLEN | USART_RTOR_RTO,0UL);
 
       // Set Baud Rate Configuration
 
@@ -2440,15 +2392,15 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
         Error_Handler();
 
       // Set Prescaler Register
-      MODIFY_REG(USART6->PRESC,USART_PRESC_PRESC,presc_value);
+      MODIFY_REG(USART6->PRESC,USART_PRESC_PRESCALER,presc_value);
 
       // Set Baud Rate Register
-      MODIFY_REG(USART6->BRR,USART_BRR_BRR,brr_value);
+      MODIFY_REG(USART6->BRR,USART_BRR_DIV_FRACTION | USART_BRR_DIV_MANTISSA,brr_value);
 
       //
       //  *** NVIC SETUP ***
       //
-      HAL_NVIC_SetPriority(USART6_IRQn, H7UART_USART6_PRI, H7UART_USART6_SUBPRI);
+      HAL_NVIC_SetPriority(USART6_IRQn, H7UART_IRQ_USART6_PRI, H7UART_IRQ_USART6_SUBPRI);
       HAL_NVIC_EnableIRQ(USART6_IRQn);
 
       // Peripheral enable
@@ -2609,10 +2561,10 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
       //
 
       //- Global peripheral callback
-      h7uart_state_uart7->irq_callback = init_config->irq_callback;
+      h7uart_state_uart7.irq_callback = init_config->irq_callback;
 
       //- Reception callback
-      h7uart_state_uart7->rx_callback  = init_config->rx_callback;
+      h7uart_state_uart7.rx_callback  = init_config->rx_callback;
 
       //
       // *** UART SETUP ***
@@ -2624,15 +2576,15 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
 
       // Set the Config Register 1
       MODIFY_REG(UART7->CR1,
-            USART_CR1_M1      | USART_CR1_EOBIE  | USART_CR1_RTOIE
-          | USART_CR1_DEAT    | USART_CR1_DEDT   | USART_CR1_OVER8  | USART_CR1_CMIE | USART_CR1_MME     | USART_CR1_M0
-          | USART_CR1_WAKE    | USART_CR1_PCE    | USART_CR1_PS     | USART_CR1_PEIE | USART_CR1_TXFNFIE | USART_CR1_TCIE
-          | USART_CR1_RXFNEIE | USART_CR1_IDLEIE | USART_CR1_TE     | USART_CR1_RE   | USART_CR1_UESM    | USART_CR1_UE,
+            USART_CR1_M1             | USART_CR1_EOBIE  | USART_CR1_RTOIE
+          | USART_CR1_DEAT           | USART_CR1_DEDT   | USART_CR1_OVER8  | USART_CR1_CMIE | USART_CR1_MME           | USART_CR1_M0
+          | USART_CR1_WAKE           | USART_CR1_PCE    | USART_CR1_PS     | USART_CR1_PEIE | USART_CR1_TXEIE_TXFNFIE | USART_CR1_TCIE
+          | USART_CR1_RXNEIE_RXFNEIE | USART_CR1_IDLEIE | USART_CR1_TE     | USART_CR1_RE   | USART_CR1_UESM          | USART_CR1_UE,
           cr1_value);
 
       // Set the Config Register 2
       MODIFY_REG(UART7->CR2,
-            USART_CR2_ADD     | USART_CR2_RTOEN | USART_CR2_ABRMOD | USART_CR2_ABREN | USART_CR2_MSBFIRST | USART_CR2_DATAINV
+            USART_CR2_ADD     | USART_CR2_RTOEN | USART_CR2_ABRMODE | USART_CR2_ABREN | USART_CR2_MSBFIRST | USART_CR2_DATAINV
           | USART_CR2_TXINV   | USART_CR2_RXINV | USART_CR2_SWAP   | USART_CR2_LINEN | USART_CR2_STOP     | USART_CR2_CLKEN
           | USART_CR2_CPOL    | USART_CR2_CPHA  | USART_CR2_LBCL   | USART_CR2_LBDIE | USART_CR2_LBDL     | USART_CR2_ADDM7
           | USART_CR2_DIS_NSS | USART_CR2_SLVEN,
@@ -2655,9 +2607,7 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
       // Set Receiver Timeout Register
       // - BLEN: It is used only in Smartcard mode which is not implmented by the present driver
       // - RTO: Receive timeout value it is not used in the present driver.
-      MODIFY_REG(UART7->RTOR,
-          USART_RTOR_BLE | USART_RTOR_RTO,
-          0UL);
+      MODIFY_REG(USART1->RTOR,USART_RTOR_BLEN | USART_RTOR_RTO,0UL);
 
       // Set Baud Rate Configuration
 
@@ -2672,23 +2622,23 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
         Error_Handler();
 
       // Set Prescaler Register
-      MODIFY_REG(UART7->PRESC,USART_PRESC_PRESC,presc_value);
+      MODIFY_REG(UART7->PRESC,USART_PRESC_PRESCALER,presc_value);
 
       // Set Baud Rate Register
-      MODIFY_REG(UART7->BRR,USART_BRR_BRR,brr_value);
+      MODIFY_REG(UART7->BRR,USART_BRR_DIV_FRACTION | USART_BRR_DIV_MANTISSA,brr_value);
 
       //
       //  *** NVIC SETUP ***
       //
-      HAL_NVIC_SetPriority(UART7_IRQn, H7UART_UART7_PRI, H7UART_UART7_SUBPRI);
+      HAL_NVIC_SetPriority(UART7_IRQn, H7UART_IRQ_UART7_PRI, H7UART_IRQ_UART7_SUBPRI);
       HAL_NVIC_EnableIRQ(UART7_IRQn);
 
       // Peripheral enable
-      SET_BIT(USART7->CR1,USART_CR1_UE);
-      READ_REG(USART7->CR1);
+      SET_BIT(UART7->CR1,USART_CR1_UE);
+      READ_REG(UART7->CR1);
 
       // Update driver state
-      h7uart_state_usart7.fsm_state = H7UART_FSM_STATE_IDLE;
+      h7uart_state_uart7.fsm_state = H7UART_FSM_STATE_IDLE;
 
       break;
 #endif
@@ -2782,10 +2732,10 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
       //
 
       //- Global peripheral callback
-      h7uart_state_uart8->irq_callback = init_config->irq_callback;
+      h7uart_state_uart8.irq_callback = init_config->irq_callback;
 
       //- Reception callback
-      h7uart_state_uart8->rx_callback  = init_config->rx_callback;
+      h7uart_state_uart8.rx_callback  = init_config->rx_callback;
 
       //
       // *** UART SETUP ***
@@ -2795,23 +2745,23 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
       h7uart_uart_reset_peripheral_full(H7UART_UART8);
 
       // Set the Config Register 1
-      MODIFY_REG(USART8->CR1,
-            USART_CR1_M1      | USART_CR1_EOBIE  | USART_CR1_RTOIE
-          | USART_CR1_DEAT    | USART_CR1_DEDT   | USART_CR1_OVER8  | USART_CR1_CMIE | USART_CR1_MME     | USART_CR1_M0
-          | USART_CR1_WAKE    | USART_CR1_PCE    | USART_CR1_PS     | USART_CR1_PEIE | USART_CR1_TXFNFIE | USART_CR1_TCIE
-          | USART_CR1_RXFNEIE | USART_CR1_IDLEIE | USART_CR1_TE     | USART_CR1_RE   | USART_CR1_UESM    | USART_CR1_UE,
+      MODIFY_REG(UART8->CR1,
+            USART_CR1_M1             | USART_CR1_EOBIE  | USART_CR1_RTOIE
+          | USART_CR1_DEAT           | USART_CR1_DEDT   | USART_CR1_OVER8  | USART_CR1_CMIE | USART_CR1_MME           | USART_CR1_M0
+          | USART_CR1_WAKE           | USART_CR1_PCE    | USART_CR1_PS     | USART_CR1_PEIE | USART_CR1_TXEIE_TXFNFIE | USART_CR1_TCIE
+          | USART_CR1_RXNEIE_RXFNEIE | USART_CR1_IDLEIE | USART_CR1_TE     | USART_CR1_RE   | USART_CR1_UESM          | USART_CR1_UE,
           cr1_value);
 
       // Set the Config Register 2
-      MODIFY_REG(USART8->CR2,
-            USART_CR2_ADD     | USART_CR2_RTOEN | USART_CR2_ABRMOD | USART_CR2_ABREN | USART_CR2_MSBFIRST | USART_CR2_DATAINV
-          | USART_CR2_TXINV   | USART_CR2_RXINV | USART_CR2_SWAP   | USART_CR2_LINEN | USART_CR2_STOP     | USART_CR2_CLKEN
-          | USART_CR2_CPOL    | USART_CR2_CPHA  | USART_CR2_LBCL   | USART_CR2_LBDIE | USART_CR2_LBDL     | USART_CR2_ADDM7
+      MODIFY_REG(UART8->CR2,
+            USART_CR2_ADD     | USART_CR2_RTOEN | USART_CR2_ABRMODE | USART_CR2_ABREN | USART_CR2_MSBFIRST | USART_CR2_DATAINV
+          | USART_CR2_TXINV   | USART_CR2_RXINV | USART_CR2_SWAP    | USART_CR2_LINEN | USART_CR2_STOP     | USART_CR2_CLKEN
+          | USART_CR2_CPOL    | USART_CR2_CPHA  | USART_CR2_LBCL    | USART_CR2_LBDIE | USART_CR2_LBDL     | USART_CR2_ADDM7
           | USART_CR2_DIS_NSS | USART_CR2_SLVEN,
           cr2_value);
 
       // Set the Config Register 3
-      MODIFY_REG(USART8->CR3,
+      MODIFY_REG(UART8->CR3,
           USART_CR3_TCBGTIE | USART_CR3_WUFIE
         | USART_CR3_WUS     | USART_CR3_SCARCNT | USART_CR3_DEP     | USART_CR3_DEM     | USART_CR3_DDRE   | USART_CR3_OVRDIS
         | USART_CR3_ONEBIT  | USART_CR3_CTSIE   | USART_CR3_CTSE    | USART_CR3_RTSE    | USART_CR3_DMAT   | USART_CR3_DMAR
@@ -2820,16 +2770,12 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
 
       // Set the Guard Time and Prescaler Register
       // ( It is related to Smartcard function which is not implemented by the present driver )
-      MODIFY_REG(USART8->GTPR,
-          USART_GTPR_GT | USART_GTPR_PSC,
-          0UL);
+      MODIFY_REG(UART8->GTPR,USART_GTPR_GT | USART_GTPR_PSC,0UL);
 
       // Set Receiver Timeout Register
       // - BLEN: It is used only in Smartcard mode which is not implmented by the present driver
       // - RTO: Receive timeout value it is not used in the present driver.
-      MODIFY_REG(USART8->RTOR,
-          USART_RTOR_BLE | USART_RTOR_RTO,
-          0UL);
+      MODIFY_REG(UART8->RTOR,USART_RTOR_BLEN | USART_RTOR_RTO,0UL);
 
       // Set Baud Rate Configuration
 
@@ -2844,23 +2790,23 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
         Error_Handler();
 
       // Set Prescaler Register
-      MODIFY_REG(USART8->PRESC,USART_PRESC_PRESC,presc_value);
+      MODIFY_REG(UART8->PRESC,USART_PRESC_PRESCALER,presc_value);
 
       // Set Baud Rate Register
-      MODIFY_REG(USART8->BRR,USART_BRR_BRR,brr_value);
+      MODIFY_REG(UART8->BRR,USART_BRR_DIV_FRACTION | USART_BRR_DIV_MANTISSA,brr_value);
 
       //
       //  *** NVIC SETUP ***
       //
-      HAL_NVIC_SetPriority(UART8_IRQn, H7UART_UART8_PRI, H7UART_UART8_SUBPRI);
+      HAL_NVIC_SetPriority(UART8_IRQn, H7UART_IRQ_UART8_PRI, H7UART_IRQ_UART8_SUBPRI);
       HAL_NVIC_EnableIRQ(UART8_IRQn);
 
       // Peripheral enable
-      SET_BIT(USART8->CR1,USART_CR1_UE);
-      READ_REG(USART8->CR1);
+      SET_BIT(UART8->CR1,USART_CR1_UE);
+      READ_REG(UART8->CR1);
 
       // Update driver state
-      h7uart_state_usart8.fsm_state = H7UART_FSM_STATE_IDLE;
+      h7uart_state_uart8.fsm_state = H7UART_FSM_STATE_IDLE;
 
       break;
 #endif
@@ -2953,10 +2899,10 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
       //
 
       //- Global peripheral callback
-      h7uart_state_lpuart1->irq_callback = init_config->irq_callback;
+      h7uart_state_lpuart1.irq_callback = init_config->irq_callback;
 
       //- Reception callback
-      h7uart_state_lpuart1->rx_callback  = init_config->rx_callback;
+      h7uart_state_lpuart1.rx_callback  = init_config->rx_callback;
 
       //
       // *** UART SETUP ***
@@ -2967,17 +2913,17 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
 
       // Set the Config Register 1
       MODIFY_REG(LPUART1->CR1,
-            USART_CR1_M1      | USART_CR1_EOBIE  | USART_CR1_RTOIE
-          | USART_CR1_DEAT    | USART_CR1_DEDT   | USART_CR1_OVER8  | USART_CR1_CMIE | USART_CR1_MME     | USART_CR1_M0
-          | USART_CR1_WAKE    | USART_CR1_PCE    | USART_CR1_PS     | USART_CR1_PEIE | USART_CR1_TXFNFIE | USART_CR1_TCIE
-          | USART_CR1_RXFNEIE | USART_CR1_IDLEIE | USART_CR1_TE     | USART_CR1_RE   | USART_CR1_UESM    | USART_CR1_UE,
+            USART_CR1_M1             | USART_CR1_EOBIE  | USART_CR1_RTOIE
+          | USART_CR1_DEAT           | USART_CR1_DEDT   | USART_CR1_OVER8  | USART_CR1_CMIE | USART_CR1_MME           | USART_CR1_M0
+          | USART_CR1_WAKE           | USART_CR1_PCE    | USART_CR1_PS     | USART_CR1_PEIE | USART_CR1_TXEIE_TXFNFIE | USART_CR1_TCIE
+          | USART_CR1_RXNEIE_RXFNEIE | USART_CR1_IDLEIE | USART_CR1_TE     | USART_CR1_RE   | USART_CR1_UESM          | USART_CR1_UE,
           cr1_value);
 
       // Set the Config Register 2
       MODIFY_REG(LPUART1->CR2,
-            USART_CR2_ADD     | USART_CR2_RTOEN | USART_CR2_ABRMOD | USART_CR2_ABREN | USART_CR2_MSBFIRST | USART_CR2_DATAINV
-          | USART_CR2_TXINV   | USART_CR2_RXINV | USART_CR2_SWAP   | USART_CR2_LINEN | USART_CR2_STOP     | USART_CR2_CLKEN
-          | USART_CR2_CPOL    | USART_CR2_CPHA  | USART_CR2_LBCL   | USART_CR2_LBDIE | USART_CR2_LBDL     | USART_CR2_ADDM7
+            USART_CR2_ADD     | USART_CR2_RTOEN | USART_CR2_ABRMODE | USART_CR2_ABREN | USART_CR2_MSBFIRST | USART_CR2_DATAINV
+          | USART_CR2_TXINV   | USART_CR2_RXINV | USART_CR2_SWAP    | USART_CR2_LINEN | USART_CR2_STOP     | USART_CR2_CLKEN
+          | USART_CR2_CPOL    | USART_CR2_CPHA  | USART_CR2_LBCL    | USART_CR2_LBDIE | USART_CR2_LBDL     | USART_CR2_ADDM7
           | USART_CR2_DIS_NSS | USART_CR2_SLVEN,
           cr2_value);
 
@@ -2991,16 +2937,12 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
 
       // Set the Guard Time and Prescaler Register
       // ( It is related to Smartcard function which is not implemented by the present driver )
-      MODIFY_REG(LPUART1->GTPR,
-          USART_GTPR_GT | USART_GTPR_PSC,
-          0UL);
+      MODIFY_REG(LPUART1->GTPR,USART_GTPR_GT | USART_GTPR_PSC,0UL);
 
       // Set Receiver Timeout Register
       // - BLEN: It is used only in Smartcard mode which is not implmented by the present driver
       // - RTO: Receive timeout value it is not used in the present driver.
-      MODIFY_REG(LPUART1->RTOR,
-          USART_RTOR_BLE | USART_RTOR_RTO,
-          0UL);
+      MODIFY_REG(LPUART1->RTOR,USART_RTOR_BLEN | USART_RTOR_RTO,0UL);
 
       // Set Baud Rate Configuration
 
@@ -3015,15 +2957,15 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
         Error_Handler();
 
       // Set Prescaler Register
-      MODIFY_REG(LPUART1->PRESC,USART_PRESC_PRESC,presc_value);
+      MODIFY_REG(USART1->PRESC,USART_PRESC_PRESCALER,presc_value);
 
       // Set Baud Rate Register
-      MODIFY_REG(LPUART1->BRR,USART_BRR_BRR,brr_value);
+      MODIFY_REG(USART1->BRR,USART_BRR_DIV_FRACTION | USART_BRR_DIV_MANTISSA,brr_value);
 
       //
       //  *** NVIC SETUP ***
       //
-      HAL_NVIC_SetPriority(LPUART1_IRQn, H7UART_LPUART1_PRI, H7UART_LPUART1_SUBPRI);
+      HAL_NVIC_SetPriority(LPUART1_IRQn, H7UART_IRQ_LPUART1_PRI, H7UART_IRQ_LPUART1_SUBPRI);
       HAL_NVIC_EnableIRQ(LPUART1_IRQn);
 
       // Peripheral enable
@@ -3080,7 +3022,7 @@ void H7UART_IRQHandler_Impl(h7uart_periph_t peripheral)
   USART_TypeDef* hardware = (USART_TypeDef*) instance->uart_base;
 
   // Get Interrupt and Status Register.
-  uint32_t const isr = hardware->isr;
+  uint32_t const isr = hardware->ISR;
 
   // Auxiliary Interrupt Flag Clear Register
   uint32_t icr = 0UL;
@@ -3105,9 +3047,9 @@ void H7UART_IRQHandler_Impl(h7uart_periph_t peripheral)
       instance->data_rx[instance->cont_rx] = (uint8_t) hardware->RDR;
       instance->cont_rx++;
 
-    } while(READ_BIT(hardware->ISR,USART_ISR_RXFNE) != 0);
+    } while(READ_BIT(hardware->ISR,USART_ISR_RXFT) != 0);
 
-    instance->rx_callback(hardware->data_rx,cont_rx);
+    instance->rx_callback(instance->data_rx,instance->cont_rx);
   }
 
   // TCBGT: Transmission complete before guard time flag.
@@ -3128,9 +3070,9 @@ void H7UART_IRQHandler_Impl(h7uart_periph_t peripheral)
       instance->data_rx[instance->cont_rx] = (uint8_t) hardware->RDR;
       instance->cont_rx++;
 
-    } while(READ_BIT(hardware->ISR,USART_ISR_RXFNE) != 0);
+    } while(READ_BIT(hardware->ISR,USART_ISR_RXFF) != 0);
 
-    instance->rx_callback(hardware->data_rx,cont_rx);
+    instance->rx_callback(instance->data_rx,instance->cont_rx);
   }
 
   // TXFE: TXFIFO empty
@@ -3254,7 +3196,7 @@ void H7UART_IRQHandler_Impl(h7uart_periph_t peripheral)
   // TXFNF is set by hardware when TXFIFO is not full meaning that data can be written in the USART_TDR.
   // NO FIFO MODE: TXE - Transmit data register empty
   // TXE is set by hardware when the content of the USART_TDR register has been transferred into the shift register.
-  if ( READ_BIT(isr,USART_ISR_TXFNF | USART_ISR_TXE) != 0)
+  if ( READ_BIT(isr,USART_ISR_TXE_TXFNF) != 0)
   {
     if( instance->fsm_state == H7UART_FSM_STATE_TRASFERING )
     {
@@ -3262,10 +3204,10 @@ void H7UART_IRQHandler_Impl(h7uart_periph_t peripheral)
       {
         if( instance->cont_tx < instance->len_tx )
         {
-          hardware->TDR = ( 0x000000FF & instance->data_tx[cont_tx] );
+          hardware->TDR = ( 0x000000FF & instance->data_tx[instance->cont_tx] );
           instance->cont_tx++;
         }
-      } while(READ_BIT(hardware->ISR,USART_ISR_TXFNF | USART_ISR_TXE ) != 0);
+      } while(READ_BIT(hardware->ISR,USART_ISR_TXE_TXFNF) != 0);
     }
   }
 
@@ -3288,20 +3230,20 @@ void H7UART_IRQHandler_Impl(h7uart_periph_t peripheral)
   // RXFNE bit is set by hardware when the RXFIFO is not empty, meaning that data can be read from the USART_RDR register.
   // NO FIFO MODE: RXNE - Read data register not empty
   // RXNE bit is set by hardware when the content of the USART_RDR shift register has been transferred to the USART_RDR
-  if ( READ_BIT(isr,USART_ISR_RXFNE | USART_ISR_RXNE))
+  if ( READ_BIT(isr,USART_ISR_RXNE_RXFNE))
   {
-    if ((READ_BIT(hardware->CR1,USART_CR1_FIFOEN) != 0) && (READ_BIT(HARDWARE->CR1,USART_CR1_RXFFIE) != 0) )
+    if ((READ_BIT(hardware->CR1,USART_CR1_FIFOEN) != 0) && (READ_BIT(hardware->CR1,USART_CR1_RXFFIE) != 0) )
     {
       instance->cont_rx = 0;
       do
       {
         instance->data_rx[instance->cont_rx] = (uint8_t) hardware->RDR;
-        instance->cont_rx;
+        instance->cont_rx++;
 
-      } while(READ_BIT(hardware->ISR,USART_ISR_RXFNE) != 0);
+      } while(READ_BIT(hardware->ISR,USART_ISR_RXNE_RXFNE) != 0);
 
       if (instance->rx_callback != NULL )
-        instance->rx_callback(hardware->data_rx,cont_rx);
+        instance->rx_callback(instance->data_rx,instance->cont_rx);
     }
   }
 
@@ -3360,7 +3302,7 @@ void H7UART_IRQHandler_Impl(h7uart_periph_t peripheral)
   READ_REG(hardware->ICR);
 
   // Check fsm_state to update mutex
-  if (instance->fsm_update == H7UART_FSM_STATE_IDLE)
+  if (instance->fsm_state == H7UART_FSM_STATE_IDLE)
   {
     h7uart_uart_mutex_release_fromISR(peripheral);
   }
@@ -3376,7 +3318,12 @@ static int h7uart_uart_pre_transaction_check(h7uart_periph_t peripheral, uint32_
   // Do not run if the driver is in error state
   switch(instance->fsm_state)
   {
-    case H7UART_FSM_STATE_ERROR:
+    case H7UART_FSM_STATE_ERROR_ABRE:
+    case H7UART_FSM_STATE_ERROR_UDR:
+    case H7UART_FSM_STATE_ERROR_ORE:
+    case H7UART_FSM_STATE_ERROR_NE:
+    case H7UART_FSM_STATE_ERROR_FE:
+    case H7UART_FSM_STATE_ERROR_PE:
       return H7UART_RET_CODE_PERIPH_IN_ERR_STATE;
     default:
       break;

@@ -61,19 +61,20 @@ typedef struct
 
   uint32_t  len_tx;
   uint32_t  cont_tx;
-  uint32_t* data_tx;
+  uint8_t*  data_tx;
 
   uint32_t timestart;
   uint32_t timeout;
 
   void (*irq_callback)(uint32_t);
-  void (*rx_callback) (void);
+  void (*rx_callback) (uint8_t*,uint32_t);
 
-} h7spi_driver_instance_state_t;
+} h7uart_driver_instance_state_t;
 
-h7spi_spi_ret_code_t h7uart_uart_mutex_lock(h7uart_periph_t peripheral, uint32_t timeout);
-h7spi_spi_ret_code_t h7uart_uart_mutex_lock_impl(h7uart_periph_t peripheral);
-h7spi_spi_ret_code_t h7uart_uart_mutex_release(h7uart_periph_t peripheral);
-h7spi_spi_ret_code_t h7uart_uart_mutex_release_fromISR(h7uart_periph_t peripheral);
+
+h7uart_uart_ret_code_t h7uart_uart_mutex_lock(h7uart_periph_t peripheral, uint32_t timeout);
+h7uart_uart_ret_code_t h7uart_uart_mutex_lock_impl(h7uart_periph_t peripheral);
+h7uart_uart_ret_code_t h7uart_uart_mutex_release(h7uart_periph_t peripheral);
+h7uart_uart_ret_code_t h7uart_uart_mutex_release_fromISR(h7uart_periph_t peripheral);
 
 #endif // INC_H7I2C_BARE_PRIV_H_
