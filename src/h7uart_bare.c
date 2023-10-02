@@ -33,7 +33,7 @@
 /*                                                                                           */
 /*********************************************************************************************/
 
-#include "../../h7uart-baremetal-driver_test/include/h7uart_bare.h"
+#include "h7uart_bare.h"
 
 #include "main.h"
 
@@ -43,8 +43,8 @@
 #include "stm32h7xx_hal_rcc.h"
 #include "stm32h745xx.h"
 
-#include "../../h7uart-baremetal-driver_test/include/h7uart_bare_priv.h"
-#include "../../h7uart-baremetal-driver_test/include/h7uart_config.h"
+#include "h7uart_bare_priv.h"
+#include "h7uart_config.h"
 
 // For an explanation of the CR1 and CR2 bitmaps, see RM0399
 

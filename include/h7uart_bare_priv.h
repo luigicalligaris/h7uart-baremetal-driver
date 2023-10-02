@@ -36,8 +36,8 @@
 #ifndef INC_H7UART_BARE_PRIV_H_
 #define INC_H7UART_BARE_PRIV_H_
 
-#include "../../h7uart-baremetal-driver_test/include/h7uart_bare.h"
-#include "../../h7uart-baremetal-driver_test/include/h7uart_config.h"
+#include "h7uart_bare.h"
+#include "h7uart_config.h"
 
 
 enum {H7UART_UART_MUTEX_UNLOCKED = 0, H7UART_UART_MUTEX_LOCKED = 1};

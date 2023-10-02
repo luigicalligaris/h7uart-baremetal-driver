@@ -38,8 +38,8 @@
 
 #include <stdint.h>
 
-#include "../../h7uart-baremetal-driver_test/include/h7uart_bare.h"
-#include "../../h7uart-baremetal-driver_test/include/h7uart_config.h"
+#include "h7uart_bare.h"
+#include "h7uart_config.h"
 
 
 

@@ -38,7 +38,7 @@
 
 #include <stdint.h>
 
-#include "../../h7uart-baremetal-driver_test/include/h7uart_config.h"
+#include "h7uart_config.h"
 
 // UART FIFO FEATURE
 #define H7UART_FIFO_DEPH 16
