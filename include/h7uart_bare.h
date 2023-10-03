@@ -47,14 +47,14 @@
 
 typedef enum
 {
-  H7UART_UART4,
-  H7UART_UART5,
-  H7UART_UART7,
-  H7UART_UART8,
   H7UART_USART1,
   H7UART_USART2,
   H7UART_USART3,
+  H7UART_UART4,
+  H7UART_UART5,
   H7UART_USART6,
+  H7UART_UART7,
+  H7UART_UART8,
   H7UART_LPUART1
 } h7uart_periph_t;
 
@@ -264,6 +264,8 @@ h7uart_uart_ret_code_t h7uart_wait_until_ready(h7uart_periph_t peripheral, uint3
 int h7uart_is_in_error(h7uart_periph_t peripheral);
 h7uart_uart_fsm_state_t h7uart_get_state(h7uart_periph_t peripheral);
 h7uart_uart_ret_code_t h7uart_clear_error_state(h7uart_periph_t peripheral);
+
+int h7uart_uart_tx(h7uart_periph_t peripheral, uint8_t *data, uint16_t len, uint32_t timeout);
 
 h7uart_uart_ret_code_t h7uart_tx_nonblocking(h7uart_periph_t peripheral, uint16_t len,  uint8_t* data, uint32_t timeout);
 h7uart_uart_ret_code_t h7uart_tx_blocking(h7uart_periph_t peripheral, uint16_t len,  uint8_t* data, uint32_t timeout);

@@ -46,6 +46,13 @@
 #include "h7uart_bare_priv.h"
 #include "h7uart_config.h"
 
+
+// Relevant constants
+static const uint32_t presc_constant_values[12] = {1,2,4,6,8,10,12,16,32,64,128,256};
+
+// Functions prototype
+
+
 // For an explanation of the CR1 and CR2 bitmaps, see RM0399
 
 #if H7UART_PERIPH_ENABLE_USART1 == 1
@@ -79,9 +86,12 @@ h7uart_driver_instance_state_t h7uart_state_usart1 =
 
 h7uart_periph_init_config_t current_periph_init_config_usart1 =
 {
-  .pin_rx        = H7UART_PIN_USART1_RX_PA10,
-  .pin_tx        = H7UART_PIN_USART1_TX_PB14,
+   //.pin_rx        = H7UART_PIN_USART1_RX_PA10,
+   //.pin_tx        = H7UART_PIN_USART1_TX_PB14,
+  .pin_rx        = H7UART_PIN_USART1_RX_PB7,
+  .pin_tx        = H7UART_PIN_USART1_TX_PB6,
   .rcc_clksource = RCC_USART1CLKSOURCE_D2PCLK2,
+  .function      = PERIPH_TX_RX,
   .data_config   = DATA_WORD_LENGTH_8_NO_PARITY,
   .fifo_enable   = FIFO_MODE_DISABLE,
   .fifo_rx_thres = FIFO_TH_1_8,
@@ -1053,38 +1063,38 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
   switch(init_config->data_config)
   {
     case DATA_WORD_LENGTH_8_NO_PARITY:   // 1 start, 8 Data bits, no parity, 1 Stop bit
-      cr1_value =
+      cr1_value |=
           ( (0UL << USART_CR1_M1_Pos   ) & USART_CR1_M1   ) | //
           ( (0UL << USART_CR1_M0_Pos   ) & USART_CR1_M0   ) | // M[1:0] = '00': 1 start, 8 Data bits, n Stop bit.
           ( (0UL << USART_CR1_PCE_Pos  ) & USART_CR1_PCE  ) | // PCE    = Parity Control (generation and detection) disable.
           ( (0UL << USART_CR1_PS_Pos   ) & USART_CR1_PS   ) | // PS     = Parity Selection don't care because it is disable.
           ( (0UL << USART_CR1_PEIE_Pos ) & USART_CR1_PEIE ) ; // PEIE   = Parity error interrupt inhibited.
 
-      cr2_value =
+      cr2_value |=
           ( (0UL << USART_CR2_STOP_Pos ) & USART_CR2_STOP ) ; // STOP   = 1 stop bit
       break;
 
     case DATA_WORD_LENGTH_8_EVEN_PARITY: // 1 start, 8 Data bits, even parity, 1 Stop bit
-      cr1_value =
+      cr1_value |=
           ( (0UL << USART_CR1_M1_Pos   ) & USART_CR1_M1   ) | //
           ( (1UL << USART_CR1_M0_Pos   ) & USART_CR1_M0   ) | // M[1:0] = '00': 1 start, 9 Data bits, n Stop bit.
           ( (1UL << USART_CR1_PCE_Pos  ) & USART_CR1_PCE  ) | // PCE    = Parity Control (generation and detection) enable in MSB.
           ( (0UL << USART_CR1_PS_Pos   ) & USART_CR1_PS   ) | // PS     = Even Parity
           ( (1UL << USART_CR1_PEIE_Pos ) & USART_CR1_PEIE ) ; // PEIE   = USART interrupt generated whenever PE=1 in the USART_ISR reg.
 
-      cr2_value =
+      cr2_value |=
           ( (0UL << USART_CR2_STOP_Pos ) & USART_CR2_STOP ) ;   // STOP   = 1 stop bit
       break;
 
     case DATA_WORD_LENGTH_8_ODD_PARITY:  // 1 start, 8 Data bits, odd parity, 1 Stop bit
-      cr1_value =
+      cr1_value |=
           ( (0UL << USART_CR1_M1_Pos   ) & USART_CR1_M1   ) | //
           ( (1UL << USART_CR1_M0_Pos   ) & USART_CR1_M0   ) | // M[1:0] = '00': 1 start, 9 Data bits, n Stop bit.
           ( (1UL << USART_CR1_PCE_Pos  ) & USART_CR1_PCE  ) | // PCE    = Parity Control (generation and detection) enable in MSB.
           ( (1UL << USART_CR1_PS_Pos   ) & USART_CR1_PS   ) | // PS     = Odd Parity
           ( (1UL << USART_CR1_PEIE_Pos ) & USART_CR1_PEIE ) ; // PEIE   = USART interrupt generated whenever PE=1 in the USART_ISR reg.
 
-      cr2_value =
+      cr2_value |=
           ( (0UL << USART_CR2_STOP_Pos ) & USART_CR2_STOP ) ; // STOP   = 1 stop bit
       break;
 
@@ -1096,17 +1106,17 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
   switch(init_config->function)
   {
     case PERIPH_TX_ONLY:
-      cr1_value =
+      cr1_value |=
           ((1UL << USART_CR1_TE_Pos    ) & USART_CR1_TE   );  // TE  = Transmitter enable
       break;
 
     case PERIPH_RX_ONLY:
-      cr1_value =
+      cr1_value |=
           ((1UL << USART_CR1_RE_Pos    ) & USART_CR1_RE   );  // RE  = Receiver enable
       break;
 
     case PERIPH_TX_RX:
-      cr1_value =
+      cr1_value |=
           ((1UL << USART_CR1_TE_Pos    ) & USART_CR1_TE   ) | // TE  = Transmitter enable
           ((1UL << USART_CR1_RE_Pos    ) & USART_CR1_RE   ) ; // RE  = Receiver enable
       break;
@@ -1119,21 +1129,21 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
   switch(init_config->fifo_enable)
   {
    case FIFO_MODE_DISABLE:
-     cr1_value =
+     cr1_value |=
          ( (0UL << USART_CR1_FIFOEN_Pos        ) & USART_CR1_FIFOEN        ) | // FIFOEN = FIFO mode is not enable.
-         ( (1UL << USART_CR1_TXEIE_TXFNFIE_Pos ) & USART_CR1_TXEIE_TXFNFIE ) | // TXEIE  = Transmit data reg. empty interrupt.
+         ( (0UL << USART_CR1_TXEIE_TXFNFIE_Pos ) & USART_CR1_TXEIE_TXFNFIE ) | // TXEIE  = Transmit data reg. empty interrupt.
          ( (1UL << USART_CR1_RXNEIE_RXFNEIE_Pos) & USART_CR1_RXNEIE        ) ; // RXNEIE = Receive data reg. not empty interrupt.
      break;
 
    case FIFO_MODE_ENABLE:
-     cr1_value =
+     cr1_value |=
          ( (1UL << USART_CR1_RXFFIE_Pos        ) & USART_CR1_RXFFIE             ) | // RXFFIE  = RXFIFO Full interrupt enable.
          ( (1UL << USART_CR1_TXFEIE_Pos        ) & USART_CR1_TXFEIE             ) | // TXFEIE: = TXFIDO empty interrupt enable.
          ( (1UL << USART_CR1_FIFOEN_Pos        ) & USART_CR1_FIFOEN             ) | // FIFOEN  = FIFO mode is not enable.
          ( (1UL << USART_CR1_TXEIE_TXFNFIE_Pos ) & USART_CR1_TXEIE_TXFNFIE      ) | // TXFNFIE = TXFIFO not full interrupt enable.
          ( (1UL << USART_CR1_RXNEIE_RXFNEIE_Pos) & USART_CR1_RXNEIE_RXFNEIE_Pos ) ; // RXFNEIE = RXFIFO not empty interrupt enable.
 
-     cr3_value =
+     cr3_value |=
          ( (0UL                                      << USART_CR3_TXFTCFG_Pos ) & USART_CR3_TXFTCFG ) | // TXFTCFG = TXFIFO thres. config.
          ( (1UL                                      << USART_CR3_RXFTIE_Pos  ) & USART_CR3_RXFTIE  ) | // RXFTIE  = RXFIFO thres. interrupt enable
          ( (((uint32_t) init_config->fifo_rx_thres ) << USART_CR3_RXFTCFG_Pos ) & USART_CR3_RXFTCFG ) | // RXFTCFG = TXFIFO thres. config.
@@ -1144,10 +1154,8 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
      Error_Handler();
   }
 
-  //
-
   // Set the Prescaler value
-  presc_value = (uint32_t) init_config->presc;
+  presc_value = presc_constant_values[(int)init_config->presc];
 
   RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {0};
 
@@ -1415,6 +1423,7 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
 
       // Set Prescaler Register
       MODIFY_REG(USART1->PRESC,USART_PRESC_PRESCALER,presc_value);
+      MODIFY_REG(USART1->PRESC,USART_PRESC_PRESCALER,0);
 
       // Set Baud Rate Register
       MODIFY_REG(USART1->BRR,USART_BRR_DIV_FRACTION | USART_BRR_DIV_MANTISSA,brr_value);
@@ -3018,6 +3027,8 @@ h7uart_uart_ret_code_t h7uart_clear_error_state(h7uart_periph_t peripheral)
 
 void H7UART_IRQHandler_Impl(h7uart_periph_t peripheral)
 {
+  uint32_t cr1_value;
+
   h7uart_driver_instance_state_t* instance = h7uart_get_driver_instance(peripheral);
   USART_TypeDef* hardware = (USART_TypeDef*) instance->uart_base;
 
@@ -3200,14 +3211,11 @@ void H7UART_IRQHandler_Impl(h7uart_periph_t peripheral)
   {
     if( instance->fsm_state == H7UART_FSM_STATE_TRASFERING )
     {
-      do
+      while((READ_BIT(hardware->ISR,USART_ISR_TXE_TXFNF) != 0) && ( instance->cont_tx < instance->len_tx ))
       {
-        if( instance->cont_tx < instance->len_tx )
-        {
-          hardware->TDR = ( 0x000000FF & instance->data_tx[instance->cont_tx] );
-          instance->cont_tx++;
-        }
-      } while(READ_BIT(hardware->ISR,USART_ISR_TXE_TXFNF) != 0);
+    	  hardware->TDR = ( 0x000000FF & instance->data_tx[instance->cont_tx] );
+    	  instance->cont_tx++;
+      }
     }
   }
 
@@ -3219,6 +3227,8 @@ void H7UART_IRQHandler_Impl(h7uart_periph_t peripheral)
     {
       if( instance->cont_tx >= instance->len_tx )
       {
+        cr1_value = ( (0UL << USART_CR1_TXEIE_TXFNFIE_Pos ) & USART_CR1_TXEIE_TXFNFIE ); // TXEIE  = Transmit data reg. empty interrupt.
+    	MODIFY_REG(hardware->CR1,USART_CR1_TXEIE_TXFNFIE,cr1_value);
         instance->fsm_state = H7UART_FSM_STATE_IDLE;
       }
     }
@@ -3232,19 +3242,16 @@ void H7UART_IRQHandler_Impl(h7uart_periph_t peripheral)
   // RXNE bit is set by hardware when the content of the USART_RDR shift register has been transferred to the USART_RDR
   if ( READ_BIT(isr,USART_ISR_RXNE_RXFNE))
   {
-    if ((READ_BIT(hardware->CR1,USART_CR1_FIFOEN) != 0) && (READ_BIT(hardware->CR1,USART_CR1_RXFFIE) != 0) )
+    instance->cont_rx = 0;
+
+    while(READ_BIT(hardware->ISR,USART_ISR_RXNE_RXFNE) != 0)
     {
-      instance->cont_rx = 0;
-      do
-      {
-        instance->data_rx[instance->cont_rx] = (uint8_t) hardware->RDR;
-        instance->cont_rx++;
-
-      } while(READ_BIT(hardware->ISR,USART_ISR_RXNE_RXFNE) != 0);
-
-      if (instance->rx_callback != NULL )
-        instance->rx_callback(instance->data_rx,instance->cont_rx);
+      instance->data_rx[instance->cont_rx] = (uint8_t) hardware->RDR;
+      instance->cont_rx++;
     }
+
+    if (instance->rx_callback != NULL )
+      instance->rx_callback(instance->data_rx,instance->cont_rx);
   }
 
   // IDLE: idle line detected
@@ -3338,12 +3345,15 @@ static int h7uart_uart_pre_transaction_check(h7uart_periph_t peripheral, uint32_
   return H7UART_RET_CODE_OK;
 }
 
-static int h7uart_uart_tx(h7uart_periph_t peripheral, uint8_t *data, uint16_t len, uint32_t timeout)
+int h7uart_uart_tx(h7uart_periph_t peripheral, uint8_t *data, uint16_t len, uint32_t timeout)
 {
+  uint32_t cr1_value;
+
   if((len == 0UL) || (data == NULL))
     return H7UART_RET_CODE_INVALID_ARGS;
 
   h7uart_driver_instance_state_t* instance = h7uart_get_driver_instance(peripheral);
+  USART_TypeDef* hardware = (USART_TypeDef*) instance->uart_base;
 
   if(!instance)
     return H7UART_RET_CODE_UNMANAGED_BY_DRIVER;
@@ -3368,6 +3378,12 @@ static int h7uart_uart_tx(h7uart_periph_t peripheral, uint8_t *data, uint16_t le
 
   // Update FSM state
   instance->fsm_state = H7UART_FSM_STATE_TRASFERING;
+
+  // Update interrupt.
+  cr1_value = ( (1UL << USART_CR1_TXEIE_TXFNFIE_Pos ) & USART_CR1_TXEIE_TXFNFIE ); // TXEIE  = Transmit data reg. empty interrupt.
+  MODIFY_REG(hardware->CR1,USART_CR1_TXEIE_TXFNFIE,cr1_value);
+
+  return H7UART_RET_CODE_OK;
 }
 
 
