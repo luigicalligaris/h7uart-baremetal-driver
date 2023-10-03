@@ -3227,6 +3227,10 @@ void H7UART_IRQHandler_Impl(h7uart_periph_t peripheral)
     {
       if( instance->cont_tx >= instance->len_tx )
       {
+        cr1_value =
+    	  ( (0UL << USART_CR1_TXEIE_TXFNFIE_Pos ) & USART_CR1_TXEIE_TXFNFIE ) | // TXEIE  = Transmit data reg. empty interrupt.
+    	  ( (0UL << USART_CR1_TCIE_Pos          ) & USART_CR1_TCIE          ) ; // TCIE   = Transmission complete interrupt enable
+
         cr1_value = ( (0UL << USART_CR1_TXEIE_TXFNFIE_Pos ) & USART_CR1_TXEIE_TXFNFIE ); // TXEIE  = Transmit data reg. empty interrupt.
     	MODIFY_REG(hardware->CR1,USART_CR1_TXEIE_TXFNFIE,cr1_value);
         instance->fsm_state = H7UART_FSM_STATE_IDLE;
@@ -3250,8 +3254,15 @@ void H7UART_IRQHandler_Impl(h7uart_periph_t peripheral)
       instance->cont_rx++;
     }
 
-    if (instance->rx_callback != NULL )
-      instance->rx_callback(instance->data_rx,instance->cont_rx);
+    if (instance->fsm_state == H7UART_FSM_STATE_BLOCKING_RX )
+    {
+      instance->fsm_state = H7UART_FSM_STATE_BLOCKING_RX_NDATA;
+    }
+    else
+    {
+      if (instance->rx_callback != NULL )
+        instance->rx_callback(instance->data_rx,instance->cont_rx);
+    }
   }
 
   // IDLE: idle line detected
@@ -3345,7 +3356,8 @@ static int h7uart_uart_pre_transaction_check(h7uart_periph_t peripheral, uint32_
   return H7UART_RET_CODE_OK;
 }
 
-int h7uart_uart_tx(h7uart_periph_t peripheral, uint8_t *data, uint16_t len, uint32_t timeout)
+
+int h7uart_uart_tx_no_blocking(h7uart_periph_t peripheral, uint8_t *data, uint16_t len, uint32_t timeout)
 {
   uint32_t cr1_value;
 
@@ -3379,11 +3391,168 @@ int h7uart_uart_tx(h7uart_periph_t peripheral, uint8_t *data, uint16_t len, uint
   // Update FSM state
   instance->fsm_state = H7UART_FSM_STATE_TRASFERING;
 
-  // Update interrupt.
-  cr1_value = ( (1UL << USART_CR1_TXEIE_TXFNFIE_Pos ) & USART_CR1_TXEIE_TXFNFIE ); // TXEIE  = Transmit data reg. empty interrupt.
+  // Enable interrupts.
+  cr1_value =
+		  ( (1UL << USART_CR1_TXEIE_TXFNFIE_Pos ) & USART_CR1_TXEIE_TXFNFIE ) | // TXEIE  = Transmit data reg. empty interrupt.
+		  ( (1UL << USART_CR1_TCIE_Pos          ) & USART_CR1_TCIE          ) ; // TCIE   = Transmission complete interrupt enable
   MODIFY_REG(hardware->CR1,USART_CR1_TXEIE_TXFNFIE,cr1_value);
 
   return H7UART_RET_CODE_OK;
 }
+
+////////////////////////
+//                    //
+// BLOCKING FUNCTIONS //
+//                    //
+////////////////////////
+int h7uart_uart_tx(h7uart_periph_t peripheral, uint8_t *data, uint16_t len, uint32_t timeout)
+{
+  uint32_t cr1_value;
+  int i;
+
+  if((len == 0UL) || (data == NULL))
+    return H7UART_RET_CODE_INVALID_ARGS;
+
+  h7uart_driver_instance_state_t* instance = h7uart_get_driver_instance(peripheral);
+  USART_TypeDef* hardware = (USART_TypeDef*) instance->uart_base;
+
+  if(!instance)
+    return H7UART_RET_CODE_UNMANAGED_BY_DRIVER;
+
+  if(h7uart_uart_mutex_lock(peripheral, timeout) != H7UART_RET_CODE_OK)
+    return H7UART_RET_CODE_BUSY;
+
+  int const check_ret_val = h7uart_uart_pre_transaction_check(peripheral,timeout);
+
+  if ( check_ret_val != H7UART_RET_CODE_OK)
+  {
+    h7uart_uart_mutex_release(peripheral);
+    return check_ret_val;
+  }
+
+  instance->timestart  = HAL_GetTick();
+  instance->timeout    = timeout;
+
+  instance->len_tx     = len;
+  instance->cont_tx    = 0;
+  instance->data_tx    = data;
+
+  // Update FSM state
+  instance->fsm_state = H7UART_FSM_STATE_BLOCKING_TX;
+
+  // Disable interrupt.
+  cr1_value =
+    ( (0UL << USART_CR1_TXEIE_TXFNFIE_Pos ) & USART_CR1_TXEIE_TXFNFIE ) | // TXEIE  = Transmit data reg. empty interrupt.
+	( (0UL << USART_CR1_TCIE_Pos          ) & USART_CR1_TCIE          ) ; // TCIE   = Transmission complete interrupt enable
+  MODIFY_REG(hardware->CR1,USART_CR1_TXEIE_TXFNFIE,cr1_value);
+
+  // FIFO MODE: TXFNF - TXFIFO no full
+  // TXFNF is set by hardware when TXFIFO is not full meaning that data can be written in the USART_TDR.
+  // NO FIFO MODE: TXE - Transmit data register empty
+  // TXE is set by hardware when the content of the USART_TDR register has been transferred into the shift register.
+  for(i=0;i<instance->len_tx;i++)
+  {
+    //Wait for buffer ready
+    while (READ_BIT(hardware->ISR,USART_ISR_TXE_TXFNF) == 0)
+    {
+      if ((HAL_GetTick() - instance->timestart) > instance->timeout)
+      {
+    	// Update fsm state
+    	instance->fsm_state = H7UART_FSM_STATE_IDLE;
+    	// Check fsm_state to update mutex
+    	h7uart_uart_mutex_release_fromISR(peripheral);
+
+        return H7UART_RET_CODE_TIMEOUT;
+      }
+    }
+    hardware->TDR = ( 0x000000FF & instance->data_tx[i] );
+  }
+
+  // Wait for transmission complete
+  while (READ_BIT(hardware->ISR,USART_ISR_TC) == 0)
+  {
+	if ((HAL_GetTick() - instance->timestart) > instance->timeout)
+	{
+       // Update fsm state
+       instance->fsm_state = H7UART_FSM_STATE_IDLE;
+       // Check fsm_state to update mutex
+       h7uart_uart_mutex_release_fromISR(peripheral);
+
+       return H7UART_RET_CODE_TIMEOUT;
+	}
+  }
+
+  // Update fsm state
+  instance->fsm_state = H7UART_FSM_STATE_IDLE;
+  // Check fsm_state to update mutex
+  h7uart_uart_mutex_release_fromISR(peripheral);
+
+  return H7UART_RET_CODE_OK;
+}
+
+int h7uart_uart_rx(h7uart_periph_t peripheral, uint8_t *data, uint16_t len, uint32_t timeout)
+{
+  int i;
+  int cont_rx = 0;
+
+  if((len == 0UL) || (data == NULL))
+    return H7UART_RET_CODE_INVALID_ARGS;
+
+  h7uart_driver_instance_state_t* instance = h7uart_get_driver_instance(peripheral);
+
+
+  if(!instance)
+    return H7UART_RET_CODE_UNMANAGED_BY_DRIVER;
+
+  if(h7uart_uart_mutex_lock(peripheral, timeout) != H7UART_RET_CODE_OK)
+    return H7UART_RET_CODE_BUSY;
+
+  int const check_ret_val = h7uart_uart_pre_transaction_check(peripheral,timeout);
+
+  if ( check_ret_val != H7UART_RET_CODE_OK)
+  {
+    h7uart_uart_mutex_release(peripheral);
+    return check_ret_val;
+  }
+
+  instance->timestart  = HAL_GetTick();
+  instance->timeout    = timeout;
+
+  // Update FSM state
+  instance->fsm_state = H7UART_FSM_STATE_BLOCKING_RX;
+
+  // Wait for get the complete data
+  while(cont_rx < len)
+  {
+    //Wait for buffer ready
+    while (instance->fsm_state != H7UART_FSM_STATE_BLOCKING_RX_NDATA)
+    {
+      if ((HAL_GetTick() - instance->timestart) > instance->timeout)
+      {
+        // Update fsm state
+        instance->fsm_state = H7UART_FSM_STATE_IDLE;
+        // Check fsm_state to update mutex
+        h7uart_uart_mutex_release_fromISR(peripheral);
+
+        return H7UART_RET_CODE_TIMEOUT;
+      }
+    }
+
+    for(i=0;i<instance->cont_rx;i++)
+      data[cont_rx] = instance->data_rx[i];
+
+    // Update FSM state
+    instance->fsm_state = H7UART_FSM_STATE_BLOCKING_RX;
+  }
+
+  // Update fsm state
+  instance->fsm_state = H7UART_FSM_STATE_IDLE;
+  // Check fsm_state to update mutex
+  h7uart_uart_mutex_release_fromISR(peripheral);
+
+  return H7UART_RET_CODE_OK;
+}
+
+
 
 
