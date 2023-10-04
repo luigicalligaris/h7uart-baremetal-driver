@@ -253,11 +253,9 @@ h7uart_uart_fsm_state_t h7uart_get_state(h7uart_periph_t peripheral);
 h7uart_uart_ret_code_t h7uart_clear_error_state(h7uart_periph_t peripheral);
 
 int h7uart_uart_tx(h7uart_periph_t peripheral, uint8_t *data, uint16_t len, uint32_t timeout);
+int h7uart_uart_rx(h7uart_periph_t peripheral, uint8_t *data, uint16_t len, uint32_t timeout);
+int h7uart_uart_tx_no_blocking(h7uart_periph_t peripheral, uint8_t *data, uint16_t len, uint32_t timeout);
 
-h7uart_uart_ret_code_t h7uart_tx_nonblocking(h7uart_periph_t peripheral, uint16_t len,  uint8_t* data, uint32_t timeout);
-h7uart_uart_ret_code_t h7uart_tx_blocking(h7uart_periph_t peripheral, uint16_t len,  uint8_t* data, uint32_t timeout);
 
-h7uart_uart_ret_code_t h7uart_rx_from_isr(h7uart_periph_t peripheral, uint16_t len, uint8_t* data);
-h7uart_uart_ret_code_t h7uart_rx_blocking(h7uart_periph_t peripheral, uint16_t len, uint8_t* data);
 
 #endif // INC_H7UART_BARE_H_

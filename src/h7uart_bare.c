@@ -47,11 +47,8 @@
 #include "h7uart_config.h"
 
 
-// Relevant constants
-static const uint32_t presc_constant_values[12] = {1,2,4,6,8,10,12,16,32,64,128,256};
-
 // Functions prototype
-
+void H7UART_IRQHandler_Impl(h7uart_periph_t peripheral);
 
 // For an explanation of the CR1 and CR2 bitmaps, see RM0399
 
@@ -1044,14 +1041,14 @@ h7uart_uart_ret_code_t h7uart_uart_init(h7uart_periph_t peripheral)
 
 h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7uart_periph_init_config_t* init_config)
 {
+  // Relevant constants
+  static const uint32_t presc_constant_values[12] = {1,2,4,6,8,10,12,16,32,64,128,256};
+
   // variables for peripheral init. configuration
   uint32_t cr1_value   = 0UL;
   uint32_t cr2_value   = 0UL;
   uint32_t cr3_value   = 0UL;
   uint32_t brr_value   = 0UL;
-  uint32_t gtpr_value  = 0UL;
-  uint32_t rtor_value  = 0UL;
-  uint32_t rqr_value   = 0UL;
   uint32_t presc_value = 0UL;
 
   uint32_t usart_ker_ckpres;
@@ -3539,7 +3536,10 @@ int h7uart_uart_rx(h7uart_periph_t peripheral, uint8_t *data, uint16_t len, uint
     }
 
     for(i=0;i<instance->cont_rx;i++)
+    {
       data[cont_rx] = instance->data_rx[i];
+      cont_rx++;
+    }
 
     // Update FSM state
     instance->fsm_state = H7UART_FSM_STATE_BLOCKING_RX;
