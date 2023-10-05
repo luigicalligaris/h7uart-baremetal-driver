@@ -1337,8 +1337,8 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
           case H7UART_PIN_USART1_TX_PB14:
             __HAL_RCC_GPIOB_CLK_ENABLE();
 
-            // GPIOB AFRL: Set alternate function USART1 = 7 = 0b0111 (see datasheet chapt 5) to pin PB14  (USART1_TX)
-            MODIFY_REG(GPIOB->AFR[1], 0b1111 << 24, 0b0111 << 24);
+            // GPIOB AFRL: Set alternate function USART1 = 4 = 0b0100 (see datasheet chapt 5) to pin PB14  (USART1_TX)
+            MODIFY_REG(GPIOB->AFR[1], 0b1111 << 24, 0b0100 << 24);
             // GPIOB OSPEEDR: Set very high speed = 0b11 to pin PB14
             MODIFY_REG(GPIOB->OSPEEDR, 0b11 << 28, 0b11 << 28);
             // GPIOB PUPDR: Set pull-up = 0b01 to pin PB14
