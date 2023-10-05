@@ -83,10 +83,8 @@ h7uart_driver_instance_state_t h7uart_state_usart1 =
 
 h7uart_periph_init_config_t current_periph_init_config_usart1 =
 {
-   //.pin_rx        = H7UART_PIN_USART1_RX_PA10,
-   //.pin_tx        = H7UART_PIN_USART1_TX_PB14,
-  .pin_rx        = H7UART_PIN_USART1_RX_PB7,
-  .pin_tx        = H7UART_PIN_USART1_TX_PB6,
+  .pin_rx        = H7UART_PIN_USART1_RX_PA10,
+  .pin_tx        = H7UART_PIN_USART1_TX_PB14,
   .rcc_clksource = RCC_USART1CLKSOURCE_D2PCLK2,
   .function      = PERIPH_TX_RX,
   .data_config   = DATA_WORD_LENGTH_8_NO_PARITY,
@@ -133,7 +131,7 @@ h7uart_periph_init_config_t current_periph_init_config_usart2 =
 {
   .pin_rx        = H7UART_PIN_USART1_RX_PA10,
   .pin_tx        = H7UART_PIN_USART1_TX_PB14,
-  .rcc_clksource = RCC_USART1CLKSOURCE_D2PCLK2,
+  .rcc_clksource = RCC_USART234578CLKSOURCE_PCLK1,
   .data_config   = DATA_WORD_LENGTH_8_NO_PARITY,
   .fifo_enable   = FIFO_MODE_DISABLE,
   .fifo_rx_thres = FIFO_TH_1_8,
@@ -177,7 +175,7 @@ h7uart_periph_init_config_t current_periph_init_config_usart3 =
 {
   .pin_rx        = H7UART_PIN_USART1_RX_PA10,
   .pin_tx        = H7UART_PIN_USART1_TX_PB14,
-  .rcc_clksource = RCC_USART1CLKSOURCE_D2PCLK2,
+  .rcc_clksource = RCC_USART234578CLKSOURCE_PCLK1,
   .data_config   = DATA_WORD_LENGTH_8_NO_PARITY,
   .fifo_enable   = FIFO_MODE_DISABLE,
   .fifo_rx_thres = FIFO_TH_1_8,
@@ -219,9 +217,9 @@ h7uart_driver_instance_state_t h7uart_state_uart4 =
 
 h7uart_periph_init_config_t current_periph_init_config_uart4 =
 {
-  .pin_rx        = H7UART_PIN_USART1_RX_PA10,
-  .pin_tx        = H7UART_PIN_USART1_TX_PB14,
-  .rcc_clksource = RCC_USART1CLKSOURCE_D2PCLK2,
+  .pin_rx        = H7UART_PIN_UART4_RX_PH14,
+  .pin_tx        = H7UART_PIN_UART4_TX_PB9,
+  .rcc_clksource = RCC_USART234578CLKSOURCE_PCLK1,
   .data_config   = DATA_WORD_LENGTH_8_NO_PARITY,
   .fifo_enable   = FIFO_MODE_DISABLE,
   .fifo_rx_thres = FIFO_TH_1_8,
@@ -265,7 +263,7 @@ h7uart_periph_init_config_t current_periph_init_config_uart5 =
 {
   .pin_rx        = H7UART_PIN_USART1_RX_PA10,
   .pin_tx        = H7UART_PIN_USART1_TX_PB14,
-  .rcc_clksource = RCC_USART1CLKSOURCE_D2PCLK2,
+  .rcc_clksource = RCC_USART234578CLKSOURCE_PCLK1,
   .data_config   = DATA_WORD_LENGTH_8_NO_PARITY,
   .fifo_enable   = FIFO_MODE_DISABLE,
   .fifo_rx_thres = FIFO_TH_1_8,
@@ -309,7 +307,7 @@ h7uart_periph_init_config_t current_periph_init_config_usart6 =
 {
   .pin_rx        = H7UART_PIN_USART1_RX_PA10,
   .pin_tx        = H7UART_PIN_USART1_TX_PB14,
-  .rcc_clksource = RCC_USART1CLKSOURCE_D2PCLK2,
+  .rcc_clksource = RCC_USART234578CLKSOURCE_PCLK1,
   .data_config   = DATA_WORD_LENGTH_8_NO_PARITY,
   .fifo_enable   = FIFO_MODE_DISABLE,
   .fifo_rx_thres = FIFO_TH_1_8,
@@ -353,7 +351,7 @@ h7uart_periph_init_config_t current_periph_init_config_uart7 =
 {
   .pin_rx        = H7UART_PIN_USART1_RX_PA10,
   .pin_tx        = H7UART_PIN_USART1_TX_PB14,
-  .rcc_clksource = RCC_USART1CLKSOURCE_D2PCLK2,
+  .rcc_clksource = RCC_USART234578CLKSOURCE_PCLK1,
   .data_config   = DATA_WORD_LENGTH_8_NO_PARITY,
   .fifo_enable   = FIFO_MODE_DISABLE,
   .fifo_rx_thres = FIFO_TH_1_8,
@@ -396,7 +394,7 @@ h7uart_periph_init_config_t current_periph_init_config_uart8 =
 {
   .pin_rx        = H7UART_PIN_USART1_RX_PA10,
   .pin_tx        = H7UART_PIN_USART1_TX_PB14,
-  .rcc_clksource = RCC_USART1CLKSOURCE_D2PCLK2,
+  .rcc_clksource = RCC_USART234578CLKSOURCE_PCLK1,
   .data_config   = DATA_WORD_LENGTH_8_NO_PARITY,
   .fifo_enable   = FIFO_MODE_DISABLE,
   .fifo_rx_thres = FIFO_TH_1_8,
@@ -439,7 +437,7 @@ h7uart_periph_init_config_t current_periph_init_config_lpuart1 =
 {
   .pin_rx        = H7UART_PIN_USART1_RX_PA10,
   .pin_tx        = H7UART_PIN_USART1_TX_PB14,
-  .rcc_clksource = RCC_USART1CLKSOURCE_D2PCLK2,
+  .rcc_clksource = RCC_USART234578CLKSOURCE_PCLK1,
   .data_config   = DATA_WORD_LENGTH_8_NO_PARITY,
   .fifo_enable   = FIFO_MODE_DISABLE,
   .fifo_rx_thres = FIFO_TH_1_8,
@@ -1967,16 +1965,16 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
           case H7UART_PIN_UART4_TX_PB9:
             __HAL_RCC_GPIOB_CLK_ENABLE();
 
-            // GPIOA AFRL: Set alternate function UART4 = 6 = 0b0110 (see datasheet chapt 5) to pin PB9 (UART4_TX)
-            MODIFY_REG(GPIOA->AFR[1], 0b1111 << 16, 0b0110 << 16);
-            // GPIOA OSPEEDR: Set very high speed = 0b11 to pin PB9
-            MODIFY_REG(GPIOA->OSPEEDR, 0b11 << 24, 0b11 << 24);
-            // GPIOA PUPDR: Set pull-up = 0b01 to pin PB9
-            MODIFY_REG(GPIOA->PUPDR, 0b11 << 24, 0b01 << 24);
-            // GPIOA OTYPED: Set no open drain = 0b0 to pin PB9
-            MODIFY_REG(GPIOA->OTYPER, 0b1 << 12, 0b0 << 12);
-            // GPIOA MODER: Set alternate mode = 0b10 to pins PB9
-            MODIFY_REG(GPIOA->MODER, 0b11 << 24, 0b10 << 24);
+            // GPIOB AFRL: Set alternate function UART4 = 8 = 0b1000 (see datasheet chapt 5) to pin PB9 (UART4_TX)
+            MODIFY_REG(GPIOB->AFR[1], 0b1111 << 4, 0b1000 << 4);
+            // GPIOB OSPEEDR: Set very high speed = 0b11 to pin PB9
+            MODIFY_REG(GPIOB->OSPEEDR, 0b11 << 18, 0b11 << 18);
+            // GPIOB PUPDR: Set pull-up = 0b01 to pin PB9
+            MODIFY_REG(GPIOB->PUPDR, 0b11 << 18, 0b01 << 18);
+            // GPIOB OTYPED: Set no open drain = 0b0 to pin PB9
+            MODIFY_REG(GPIOB->OTYPER, 0b1 << 9, 0b0 << 9);
+            // GPIOB MODER: Set alternate mode = 0b10 to pins PB9
+            MODIFY_REG(GPIOB->MODER, 0b11 << 18, 0b10 << 18);
             break;
 
           case H7UART_PIN_UART4_TX_PC10:
@@ -2094,7 +2092,7 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
         Error_Handler();
 
       // Set Prescaler Register
-      MODIFY_REG(UART4->PRESC,USART_PRESC_PRESCALER,presc_value);
+      MODIFY_REG(UART4->PRESC,USART_PRESC_PRESCALER,init_config->presc);
 
       // Set Baud Rate Register
       MODIFY_REG(UART4->BRR,USART_BRR_DIV_FRACTION | USART_BRR_DIV_MANTISSA,brr_value);
