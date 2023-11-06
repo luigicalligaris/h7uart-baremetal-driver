@@ -2127,7 +2127,7 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
             __HAL_RCC_GPIOD_CLK_ENABLE();
 
             // GPIOD AFRL: Set alternate function UART5 = 8 = 0b1000 (see datasheet chapt 5) to pin PD2 (UART5_RX)
-            MODIFY_REG(GPIOD->AFR[1], 0b1111 << 8, 0b1000 << 8);
+            MODIFY_REG(GPIOD->AFR[0], 0b1111 << 8, 0b1000 << 8);
             // GPIOD OSPEEDR: Set very high speed = 0b11 to pin PD2
             MODIFY_REG(GPIOD->OSPEEDR, 0b11 << 4, 0b11 << 4);
             // GPIOD PUPDR: Set pull-up = 0b01 to pin PD2
