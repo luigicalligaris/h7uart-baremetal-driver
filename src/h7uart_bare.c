@@ -1417,7 +1417,7 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
         Error_Handler();
 
       // Set Prescaler Register
-      MODIFY_REG(USART1->PRESC,USART_PRESC_PRESCALER,presc_value);
+      MODIFY_REG(USART1->PRESC,USART_PRESC_PRESCALER,init_config->presc);
       MODIFY_REG(USART1->PRESC,USART_PRESC_PRESCALER,0);
 
       // Set Baud Rate Register
@@ -1588,7 +1588,7 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
         Error_Handler();
 
       // Set Prescaler Register
-      MODIFY_REG(USART2->PRESC,USART_PRESC_PRESCALER,presc_value);
+      MODIFY_REG(USART2->PRESC,USART_PRESC_PRESCALER,init_config->presc);
 
       // Set Baud Rate Register
       MODIFY_REG(USART2->BRR,USART_BRR_DIV_FRACTION | USART_BRR_DIV_MANTISSA,brr_value);
@@ -1788,7 +1788,7 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
         Error_Handler();
 
       // Set Prescaler Register
-      MODIFY_REG(USART3->PRESC,USART_PRESC_PRESCALER,presc_value);
+      MODIFY_REG(USART3->PRESC,USART_PRESC_PRESCALER,init_config->presc);
 
       // Set Baud Rate Register
       MODIFY_REG(USART3->BRR,USART_BRR_DIV_FRACTION | USART_BRR_DIV_MANTISSA,brr_value);
@@ -2227,7 +2227,7 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
         Error_Handler();
 
       // Set Prescaler Register
-      MODIFY_REG(UART5->PRESC,USART_PRESC_PRESCALER,presc_value);
+      MODIFY_REG(UART5->PRESC,USART_PRESC_PRESCALER,init_config->presc);
 
       // Set Baud Rate Register
       MODIFY_REG(UART5->BRR,USART_BRR_DIV_FRACTION | USART_BRR_DIV_MANTISSA,brr_value);
@@ -2396,7 +2396,7 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
         Error_Handler();
 
       // Set Prescaler Register
-      MODIFY_REG(USART6->PRESC,USART_PRESC_PRESCALER,presc_value);
+      MODIFY_REG(USART6->PRESC,USART_PRESC_PRESCALER,init_config->presc);
 
       // Set Baud Rate Register
       MODIFY_REG(USART6->BRR,USART_BRR_DIV_FRACTION | USART_BRR_DIV_MANTISSA,brr_value);
@@ -2626,7 +2626,7 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
         Error_Handler();
 
       // Set Prescaler Register
-      MODIFY_REG(UART7->PRESC,USART_PRESC_PRESCALER,presc_value);
+      MODIFY_REG(UART7->PRESC,USART_PRESC_PRESCALER,init_config->presc);
 
       // Set Baud Rate Register
       MODIFY_REG(UART7->BRR,USART_BRR_DIV_FRACTION | USART_BRR_DIV_MANTISSA,brr_value);
@@ -2794,7 +2794,7 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
         Error_Handler();
 
       // Set Prescaler Register
-      MODIFY_REG(UART8->PRESC,USART_PRESC_PRESCALER,presc_value);
+      MODIFY_REG(UART8->PRESC,USART_PRESC_PRESCALER,init_config->presc);
 
       // Set Baud Rate Register
       MODIFY_REG(UART8->BRR,USART_BRR_DIV_FRACTION | USART_BRR_DIV_MANTISSA,brr_value);
@@ -2961,7 +2961,7 @@ h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7
         Error_Handler();
 
       // Set Prescaler Register
-      MODIFY_REG(USART1->PRESC,USART_PRESC_PRESCALER,presc_value);
+      MODIFY_REG(USART1->PRESC,USART_PRESC_PRESCALER,init_config->presc);
 
       // Set Baud Rate Register
       MODIFY_REG(USART1->BRR,USART_BRR_DIV_FRACTION | USART_BRR_DIV_MANTISSA,brr_value);
