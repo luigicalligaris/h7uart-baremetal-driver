@@ -3414,6 +3414,9 @@ int h7uart_uart_tx(h7uart_periph_t peripheral, uint8_t *data, uint16_t len, uint
   if(!instance)
     return H7UART_RET_CODE_UNMANAGED_BY_DRIVER;
 
+  if( h7uart_is_in_error(peripheral) == 1 )
+    h7uart_uart_reset_peripheral_soft(peripheral);
+
   if(h7uart_uart_mutex_lock(peripheral, timeout) != H7UART_RET_CODE_OK)
     return H7UART_RET_CODE_BUSY;
 
@@ -3495,9 +3498,11 @@ int h7uart_uart_rx(h7uart_periph_t peripheral, uint8_t *data, uint16_t len, uint
 
   h7uart_driver_instance_state_t* instance = h7uart_get_driver_instance(peripheral);
 
-
   if(!instance)
     return H7UART_RET_CODE_UNMANAGED_BY_DRIVER;
+
+  if( h7uart_is_in_error(peripheral) == 1 )
+    h7uart_uart_reset_peripheral_soft(peripheral);
 
   if(h7uart_uart_mutex_lock(peripheral, timeout) != H7UART_RET_CODE_OK)
     return H7UART_RET_CODE_BUSY;
