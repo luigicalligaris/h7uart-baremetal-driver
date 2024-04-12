@@ -3034,7 +3034,7 @@ void H7UART_IRQHandler_Impl(h7uart_periph_t peripheral)
   uint32_t icr = 0UL;
 
   // Auxiliary Request Register
-  uint32_t rqr = 0UL;
+  // uint32_t rqr = 0UL;
 
   // TXFT: TXFIFO threshold flag
   // This bit is set by hardware when the TXFIFO reaches the threshold programmed.

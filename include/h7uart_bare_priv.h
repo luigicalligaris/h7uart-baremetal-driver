@@ -72,9 +72,9 @@ typedef struct
 } h7uart_driver_instance_state_t;
 
 
-h7uart_uart_ret_code_t h7uart_uart_mutex_lock(h7uart_periph_t peripheral, uint32_t timeout);
-h7uart_uart_ret_code_t h7uart_uart_mutex_lock_impl(h7uart_periph_t peripheral);
-h7uart_uart_ret_code_t h7uart_uart_mutex_release(h7uart_periph_t peripheral);
-h7uart_uart_ret_code_t h7uart_uart_mutex_release_fromISR(h7uart_periph_t peripheral);
+extern h7uart_uart_ret_code_t h7uart_uart_mutex_lock(h7uart_periph_t peripheral, uint32_t timeout);
+extern h7uart_uart_ret_code_t h7uart_uart_mutex_lock_impl(h7uart_periph_t peripheral);
+extern h7uart_uart_ret_code_t h7uart_uart_mutex_release(h7uart_periph_t peripheral);
+extern h7uart_uart_ret_code_t h7uart_uart_mutex_release_fromISR(h7uart_periph_t peripheral);
 
 #endif // INC_H7I2C_BARE_PRIV_H_

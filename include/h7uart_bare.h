@@ -235,26 +235,26 @@ typedef struct
 }h7uart_periph_init_config_t;
 
 
-h7uart_uart_ret_code_t h7uart_uart_init(h7uart_periph_t peripheral);
-h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7uart_periph_init_config_t* init_config);
-void h7uart_deinit(h7uart_periph_t peripheral);
+extern h7uart_uart_ret_code_t h7uart_uart_init(h7uart_periph_t peripheral);
+extern h7uart_uart_ret_code_t h7uart_uart_init_by_config(h7uart_periph_t peripheral, h7uart_periph_init_config_t* init_config);
+extern void h7uart_deinit(h7uart_periph_t peripheral);
 
-h7uart_uart_ret_code_t h7uart_uart_reset_peripheral_full(h7uart_periph_t peripheral);
-h7uart_uart_ret_code_t h7uart_uart_reset_peripheral_soft(h7uart_periph_t peripheral);
-h7uart_uart_ret_code_t h7uart_uart_reset_driver(h7uart_periph_t peripheral);
+extern h7uart_uart_ret_code_t h7uart_uart_reset_peripheral_full(h7uart_periph_t peripheral);
+extern h7uart_uart_ret_code_t h7uart_uart_reset_peripheral_soft(h7uart_periph_t peripheral);
+extern h7uart_uart_ret_code_t h7uart_uart_reset_driver(h7uart_periph_t peripheral);
 
-int h7uart_uart_is_managed_by_this_driver(h7uart_periph_t peripheral);
+extern int h7uart_uart_is_managed_by_this_driver(h7uart_periph_t peripheral);
 
-int h7uart_is_ready(h7uart_periph_t peripheral);
-h7uart_uart_ret_code_t h7uart_wait_until_ready(h7uart_periph_t peripheral, uint32_t timeout);
+extern int h7uart_is_ready(h7uart_periph_t peripheral);
+extern h7uart_uart_ret_code_t h7uart_wait_until_ready(h7uart_periph_t peripheral, uint32_t timeout);
 
-int h7uart_is_in_error(h7uart_periph_t peripheral);
-h7uart_uart_fsm_state_t h7uart_get_state(h7uart_periph_t peripheral);
-h7uart_uart_ret_code_t h7uart_clear_error_state(h7uart_periph_t peripheral);
+extern int h7uart_is_in_error(h7uart_periph_t peripheral);
+extern h7uart_uart_fsm_state_t h7uart_get_state(h7uart_periph_t peripheral);
+extern h7uart_uart_ret_code_t h7uart_clear_error_state(h7uart_periph_t peripheral);
 
-int h7uart_uart_tx(h7uart_periph_t peripheral, uint8_t *data, uint16_t len, uint32_t timeout);
-int h7uart_uart_rx(h7uart_periph_t peripheral, uint8_t *data, uint16_t len, uint32_t timeout);
-int h7uart_uart_tx_no_blocking(h7uart_periph_t peripheral, uint8_t *data, uint16_t len, uint32_t timeout);
+extern int h7uart_uart_tx(h7uart_periph_t peripheral, uint8_t *data, uint16_t len, uint32_t timeout);
+extern int h7uart_uart_rx(h7uart_periph_t peripheral, uint8_t *data, uint16_t len, uint32_t timeout);
+extern int h7uart_uart_tx_no_blocking(h7uart_periph_t peripheral, uint8_t *data, uint16_t len, uint32_t timeout);
 
 
 
